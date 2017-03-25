@@ -2,7 +2,7 @@
  * @description init canvas index
  */
 
-import init as layout from './src/layout/index.js';
+import * as layout from './layout/index.js';
 
 var x2 = 10;
 
@@ -26,7 +26,6 @@ function init (selector) {
 
     if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
-        init(selector);
         //ctx.fillRect(25,25,100,100);
 
     }
@@ -42,4 +41,5 @@ function init (selector) {
     }());
 }
 
-init('ediotr');
+//init('editor');
+layout.init('editor');

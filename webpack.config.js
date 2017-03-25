@@ -1,8 +1,16 @@
+var path = require('path');
+var webpack = require('webpack');
+var root = path.resolve(__dirname, './');
+
 module.exports = {
     devtool: 'source-map',
 
-    entry:  __dirname + "/index.js",
+    entry:  __dirname + "/src/index.js",
     output: {
+        stats: {
+            colors: true
+        },
+        noInfo: true,
         path: __dirname + "/",
         filename: "bundle.js"
     },
@@ -15,9 +23,9 @@ module.exports = {
         },
         {
             test: /\.js$/,
-            loaders: ['babel'],
+            loader: 'babel',
             exclude: /node_modules/,
-            include: path.join(process.cwd(), 'src')
+            include: root
         },
         {
             test: /\.css$/,
@@ -25,9 +33,19 @@ module.exports = {
         }
         ]
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+    ],
 
     devServer: {
-        contentBase: "./test/",
+        contentBase: "./",
         port: 8888,
         colors: true,
         historyApiFallback: true,

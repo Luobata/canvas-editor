@@ -15,25 +15,33 @@ var drawTxt = function (ctx, txt) {
     ctx.fillText(txt.value, txt.cursorX, txt.cursorY);
 };
 export var clearCanvas = function (ctx, canvas) {
-    //ctx.fillStyle = "#FFF";
-    //ctx.beginPath();
-    //ctx.fillRect(0, 0, canvas.width, canvas.height);
-    //ctx.closePath();
     canvas.height = canvas.height; 
 };
 
-export function txt (ctx, key) {
-    ctx.font = `${font.weight} ${font.size} ${font.family}`;
-    cursorPosition(ctx.measureText(key).width);
+export function txt (ctx, key, delFont) {
+    var wid;
+    var weight = delFont ? delFont.weight : font.weight;
+    var size = delFont ? delFont.size : font.size;
+    var family = delFont ? delFont.family : font.family;
+    ctx.font = `${weight} ${size} ${family}`;
+    wid = ctx.measureText(key).width;
+    if (delFont) {
+        cursorPosition( - wid);
+    } else {
+        cursorPosition(wid);
+    }
 };
 
+/**
+ * @description 光标函数 需要判断鼠标点击位置决定光标
+ */
 export function cursor (ctx, x, y) {
     ctx.strokeStyle = '#000';
     ctx.lineWidth = 1;
     ctx.lineCap = 'square';
     ctx.beginPath();
-    ctx.moveTo(cursorX, cursorY - parseInt(font.size, 10));
-    ctx.lineTo(cursorX, cursorY);
+    ctx.moveTo(cursorX + 1, cursorY - parseInt(font.size, 10));
+    ctx.lineTo(cursorX + 1, cursorY);
     ctx.stroke();
     ctx.closePath();
 };

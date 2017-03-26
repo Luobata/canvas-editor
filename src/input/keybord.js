@@ -12,11 +12,22 @@ import {
 
 var anylyse = function (input, ctx) {
     var pop;
-    if (input.keyCode === 8) {
-        // backspace
+    var code = input.keyCode;
+
+    // backspace
+    if (code === 8) {
         pop = stack.txtArr.pop();
         pop && draw.txt(ctx, pop.value, pop);
-    } else {
+        return;
+    }
+
+    // 文本
+    if ((code >= 48 && code <= 57) || 
+        (code >= 65 && code <= 90) || 
+        (code >=96 && code <= 107) ||
+        (code >=109 && code <= 111) ||
+        (code >= 186 && code <= 192) ||
+        (code >= 219 && code <= 222)) {
         stack.txtArr.push({
             size: font.size,
             weight: font.weight,

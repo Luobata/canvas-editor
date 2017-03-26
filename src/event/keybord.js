@@ -12,8 +12,8 @@ import keybord from '../input/keybord.js';
 
 export default function init (canvas, ctx) {
     canvas.addEventListener('keydown', function (e) {
-        e.preventDefault();
         keybord(e, ctx, canvas);
+        e.stopPropagation;
     });
     canvas.addEventListener('focus', function (e) {
         //draw.cursor(ctx);

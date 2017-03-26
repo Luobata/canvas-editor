@@ -15,7 +15,7 @@ var anylyse = function (input, ctx) {
     if (input.keyCode === 8) {
         // backspace
         pop = stack.txtArr.pop();
-        draw.txt(ctx, pop.value, pop);
+        pop && draw.txt(ctx, pop.value, pop);
     } else {
         stack.txtArr.push({
             size: font.size,

@@ -13,7 +13,7 @@ import keybord from '../input/keybord.js';
 export default function init (canvas, ctx) {
     canvas.addEventListener('keydown', function (e) {
         keybord(e, ctx, canvas);
-        e.stopPropagation;
+        e.stopPropagation();
     });
     canvas.addEventListener('focus', function (e) {
         //draw.cursor(ctx);

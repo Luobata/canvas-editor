@@ -10,13 +10,14 @@ import {
 } from '../layout/cursor.js';
 import keybord from '../input/keybord.js';
 
-export default function init (canvas, ctx) {
-    canvas.addEventListener('keydown', function (e) {
+export default function init (canvas, ctx, text) {
+    text.addEventListener('keydown', function (e) {
         keybord(e, ctx, canvas);
         e.stopPropagation();
     });
     canvas.addEventListener('focus', function (e) {
         //draw.cursor(ctx);
+        text.focus();
     });
     canvas.addEventListener('blur', function (e) {
     });

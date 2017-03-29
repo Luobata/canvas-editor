@@ -3,15 +3,19 @@
 <head>
     <title></title>
     <style>
-        #editor {
+        #canvas-editor {
             border: 1px solid;
             padding: 10px;
+            width: 300px;
+            height: 150px;
         }
     </style>
 </head>
 <body>
-    <canvas id="editor" tabindex="0"></canvas>
-    <textarea id="" name="" cols="30" rows="10"></textarea>
+    <div id="editor">
+        <canvas id="canvas-editor" tabindex="0"></canvas>
+    </div>
+    <textarea id="textarea" name="" cols="30" rows="10"></textarea>
 
     <script type="text/javascript" src="./bundle.js"></script>
 </body>

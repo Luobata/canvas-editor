@@ -38,8 +38,8 @@ export function cursorPosition (width, lastX, lastY) {
 
     // 删除遇到左边界
     if (width < 0 && isBorder('left', width)) {
-        // 删除
-        cursorX = lastX;
+        // 删除 先增加一个字符的长度 后面光标计算的时候减掉
+        cursorX = lastX - width;
         cursorY = lastY;
         return;
     }

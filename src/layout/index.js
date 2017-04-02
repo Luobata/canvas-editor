@@ -3,6 +3,7 @@
  */
 
 import keybord from '../event/keybord.js';
+import * as can from './canvas';
 
 var addText = function (dom, canvas) {
     var wid = canvas.offsetWidth;
@@ -28,6 +29,7 @@ export var init = function (selector) {
 
     var text = addText(dom, canvas);
     var ctx;
+    can.canvasInit(canvas);
     
 
     if (canvas.getContext) {

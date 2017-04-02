@@ -32,6 +32,17 @@ export function txt (ctx, key, delFont) {
     }
 };
 
+export function txtLenth (ctx, key, delFont) {
+    var wid;
+    var weight = delFont ? delFont.weight : font.weight;
+    var size = delFont ? delFont.size : font.size;
+    var family = delFont ? delFont.family : font.family;
+    ctx.font = `${weight} ${size} ${family}`;
+    wid = ctx.measureText(key).width;
+
+    return wid;
+}
+
 /**
  * @description 光标函数 需要判断鼠标点击位置决定光标
  */

@@ -7,17 +7,21 @@ import * as stack from '../layout/stack.js';
 import { font } from '../layout/font.js';
 import {
     cursorX,
-    cursorY
+    cursorY,
+    cursorPosition,
+    cursorChange
 } from '../layout/cursor.js';
 
 var anylyse = function (input, ctx) {
     var pop;
+    var wid = 0;
     var code = input.keyCode;
 
-    // backspace
-    if (code === 8) {
-        pop = stack.txtArr.pop();
-        pop && draw.txt(ctx, pop.value, pop);
+    // backspace 并且存在内容
+    if (code === 8 && (pop = stack.txtArr.pop())) {
+        wid = draw.txtLenth(ctx, pop.value);
+        cursorPosition( - wid, pop.cursorX, pop.cursorY);
+        cursorChange( - wid);
         return;
     }
 
@@ -28,6 +32,8 @@ var anylyse = function (input, ctx) {
         (code >=109 && code <= 111) ||
         (code >= 186 && code <= 192) ||
         (code >= 219 && code <= 222)) {
+        wid = draw.txtLenth(ctx, input.key); 
+        cursorPosition(wid);
         stack.txtArr.push({
             size: font.size,
             weight: font.weight,
@@ -37,7 +43,7 @@ var anylyse = function (input, ctx) {
             cursorY: cursorY,
             value: input.key
         });
-        draw.txt(ctx, input.key);
+        cursorChange(wid);
     }
 };
 

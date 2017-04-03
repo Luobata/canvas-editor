@@ -6,5 +6,6 @@ export var txtArr = [];
 export var cursor = {
     x: 0,
     y: 0,
-    show: false
+    show: false,
+    isHidden: false
 };

@@ -3,11 +3,24 @@
  */
 
 import { font } from './font.js';
-import * as canvas from './canvas';
+import * as canvas from './canvas.js';
+import * as stack from './stack.js';
+import * as draw from '../event/draw.js';
+
+const cursorTime = 1000;
 
 export var cursorX = 0;
 export var cursorY = (function () {
     return parseInt(font.size, 10);
+}());
+
+export var cursorTimer = (function () {
+    var timer = null;
+    timer = setInterval(function () {
+        stack.cursor.isHidden = !stack.cursor.isHidden;
+        draw.drawAll();
+    }, cursorTime);
+    return 
 }());
 
 var isBorder = function (dir, width) {

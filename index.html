@@ -6,16 +6,26 @@
         #canvas-editor {
             border: 1px solid;
             padding: 10px;
-            width: 300px;
-            height: 150px;
+        }
+        #textarea {
+            overflow-y: scroll;
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            border: 1px solid #B3B2B2;
+            background-color: #D3D3D3;
+            -webkit-border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <div id="editor">
-        <canvas id="canvas-editor" tabindex="0"></canvas>
+        <canvas id="canvas-editor" tabindex="0" width="100" height="20"></canvas>
     </div>
-    <textarea id="textarea" name="" cols="30" rows="10"></textarea>
+    <textarea id="textarea" name="" cols="30" rows="3">123333333333333333333333333333333333333333333333333333333333335464565656565656565656565656565656565656565656565656565656565656563333333333333333333333333333333333333</textarea>
 
     <script type="text/javascript" src="./bundle.js"></script>
 </body>

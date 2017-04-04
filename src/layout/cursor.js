@@ -7,7 +7,8 @@ import * as canvas from './canvas.js';
 import * as stack from './stack.js';
 import * as draw from '../event/draw.js';
 
-const cursorTime = 1000;
+const cursorTime = 500;
+let timer;
 
 export var cursorX = 0;
 export var cursorY = (function () {
@@ -15,9 +16,9 @@ export var cursorY = (function () {
 }());
 
 export var cursorTimer = (function () {
-    var timer = null;
+    timer = null;
     timer = setInterval(function () {
-        stack.cursor.isHidden = !stack.cursor.isHidden;
+        stack.cursor.show = !stack.cursor.show;
         draw.drawAll();
     }, cursorTime);
     return 

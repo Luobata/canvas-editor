@@ -8,11 +8,11 @@ import {
     cursorX,
     cursorY
 } from '../layout/cursor.js';
-import keybord from '../input/keybord.js';
+import input from '../input/input.js';
 
 export default function init (canvas, ctx, text) {
     text.addEventListener('keydown', function (e) {
-        keybord(e, ctx, canvas);
+        input(e, ctx, canvas);
         e.stopPropagation();
     });
     canvas.addEventListener('focus', function (e) {

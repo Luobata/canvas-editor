@@ -44,20 +44,34 @@ export function txtLenth (ctx, key, delFont) {
     wid = ctx.measureText(key).width;
 
     return wid;
-}
+};
 
 /**
  * @description 光标函数 需要判断鼠标点击位置决定光标
  */
 export function cursor (ctx, x, y) {
-    ctx.strokeStyle = stack.cursor.isHidden ? '#FFF' : '#000';
+    ctx.strokeStyle = stack.cursor.show? '#FFF' : '#000';
     ctx.lineWidth = 1;
     ctx.lineCap = 'square';
     ctx.beginPath();
-    ctx.moveTo(cursorX + 1, cursorY - parseInt(font.size, 10));
+    ctx.moveTo(cursorX + 1, cursorY - parseInt(font.size, 10) - 1);
     ctx.lineTo(cursorX + 1, cursorY + 1);
     ctx.stroke();
     ctx.closePath();
+};
+
+export function scroll () {
+    if (!stack.scroll.show) return;
+    can.ctx.fillStyle = stack.scroll.color;
+    can.ctx.lineCap = 'square';
+    can.ctx.beginPath();
+    can.ctx.moveTo(stack.scroll.x + stack.scroll.radius, stack.scroll.y);
+    can.ctx.arcTo(stack.scroll.x + stack.scroll.width, stack.scroll.y, stack.scroll.x + stack.scroll.width, stack.scroll.y + stack.scroll.height, + stack.scroll.radius);
+    can.ctx.arcTo(stack.scroll.x + stack.scroll.width, stack.scroll.y + stack.scroll.height, stack.scroll.x, stack.scroll.y + stack.scroll.height, + stack.scroll.radius);
+    can.ctx.arcTo(stack.scroll.x, stack.scroll.y + stack.scroll.height, stack.scroll.x, stack.scroll.y, + stack.scroll.radius);
+    can.ctx.arcTo(stack.scroll.x, stack.scroll.y, stack.scroll.x + stack.scroll.width, stack.scroll.y, + stack.scroll.radius);
+    can.ctx.fill();
+    can.ctx.closePath();
 };
 
 export function drawAll (ctx) {
@@ -66,4 +80,5 @@ export function drawAll (ctx) {
         drawTxt(can.ctx, item);
     });
     cursor(can.ctx, stack.cursor.x, stack.cursor.y);
+    scroll();
 };

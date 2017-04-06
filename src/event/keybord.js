@@ -15,6 +15,13 @@ export default function init (canvas, ctx, text) {
         input(e, ctx, canvas);
         e.stopPropagation();
     });
+    text.addEventListener('input', function (e) {
+        if (/^[\u4E00-\u9FA5]*$/.test(e.target.value)) {
+            input({key: e.target.value, keyCode: 'txt'}, ctx, canvas);
+            e.target.value = '';
+        }
+        e.stopPropagation();
+    });
     canvas.addEventListener('focus', function (e) {
         //draw.cursor(ctx);
         text.focus();

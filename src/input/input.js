@@ -28,10 +28,11 @@ var anylyse = function (input, ctx) {
     // 文本
     if ((code >= 48 && code <= 57) || 
         (code >= 65 && code <= 90) || 
-        (code >=96 && code <= 107) ||
-        (code >=109 && code <= 111) ||
+        (code >= 96 && code <= 107) ||
+        (code >= 109 && code <= 111) ||
         (code >= 186 && code <= 192) ||
-        (code >= 219 && code <= 222)) {
+        (code >= 219 && code <= 222) ||
+        (code === 'txt')) {
         wid = draw.txtLenth(ctx, input.key); 
         cursorPosition(wid);
         stack.txtArr.push({

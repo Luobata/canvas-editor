@@ -13,7 +13,7 @@ export let scroll = {
     y: 0,
     show: true,
     color: '#D3D3D3',
-    radius: 5,
-    width: 10,
+    radius: 2,
+    width: 5,
     height: 20
 };

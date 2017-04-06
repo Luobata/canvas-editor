@@ -16,6 +16,8 @@ var anylyse = function (input, ctx) {
     var pop;
     var wid = 0;
     var code = input.keyCode;
+    var key = input.key;
+
 
     // backspace 并且存在内容
     if (code === 8 && (pop = stack.txtArr.pop())) {
@@ -48,7 +50,11 @@ var anylyse = function (input, ctx) {
     }
 };
 
-export default function input (e, ctx, canvas) {
+export function isEnter (input) {
+    return input.key === 'Process' && input.code === 'Enter';
+};
+
+export function input (e, ctx, canvas) {
     anylyse(e, ctx);
     stack.cursor.x = cursorX;
     draw.clearCanvas(ctx, canvas);

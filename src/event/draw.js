@@ -54,7 +54,7 @@ export function cursor (ctx, x, y) {
     ctx.lineWidth = 1;
     ctx.lineCap = 'square';
     ctx.beginPath();
-    ctx.moveTo(cursorX + 1, cursorY - parseInt(font.size, 10) - 1);
+    ctx.moveTo(cursorX + 1, cursorY - parseInt(font.size, 10) + 1);
     ctx.lineTo(cursorX + 1, cursorY + 1);
     ctx.stroke();
     ctx.closePath();

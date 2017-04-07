@@ -8,6 +8,7 @@ export let canvasWidth = 0;
 export let canvasHeight = 0;
 export let canvas;
 export let ctx;
+export let padding = 10;
 
 export function canvasInit (can) {
     canvas = can;

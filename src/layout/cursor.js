@@ -8,11 +8,14 @@ import * as stack from './stack.js';
 import * as draw from '../event/draw.js';
 
 const cursorTime = 500;
+const startX = canvas.padding;
+const startY = canvas.padding;
+const endY = - canvas.padding;
 let timer;
 
-export var cursorX = 0;
+export var cursorX = startX;
 export var cursorY = (function () {
-    return parseInt(font.size, 10);
+    return parseInt(font.size, 10) + startY;
 }());
 
 export var cursorTimer = (function () {
@@ -28,10 +31,10 @@ var isBorder = function (dir, width) {
     var flag = false;
     switch (dir) {
         case 'left':
-        flag = cursorX === 0;
+        flag = cursorX === startX;
         break;
         case 'right':
-        flag = cursorX + width > canvas.canvasWidth;
+        flag = cursorX + width > canvas.canvasWidth + endY;
         break;
     }
 
@@ -45,7 +48,7 @@ export function cursorChange (width) {
 export function cursorPosition (width, lastX, lastY) {
     // 输入遇到右边界
     if (width >= 0 && isBorder('right', width)) {
-        cursorX = 0;
+        cursorX = startX;
         cursorY += parseInt(font.size, 10);
         return;
     }

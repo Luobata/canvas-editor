@@ -10,11 +10,14 @@ import {
 } from '../layout/cursor.js';
 import { input, isEnter } from '../input/input.js';
 
+import {mouse} from '../input/mouse.js';
+
 export default function init (canvas, ctx, text) {
     var isProcessEnter = false;
     var textTarget;
     var inputFn = function () {
         // 输入多内容的时候分割
+        if (!textTarget) return;
         if (textTarget.value.length > 0) {
             textTarget.value.split('').forEach(function (item) {
                 input({key: item, keyCode: 'txt'}, ctx, canvas);
@@ -46,6 +49,9 @@ export default function init (canvas, ctx, text) {
     });
     text.addEventListener('keyup', function (e) {
     });
+    // 鼠标滚动事件
+    mouse.wheelEvent(text);
+
     canvas.addEventListener('focus', function (e) {
         text.focus();
     });

@@ -6,6 +6,7 @@ import { font } from './font.js';
 import * as canvas from './canvas.js';
 import * as stack from './stack.js';
 import * as draw from '../event/draw.js';
+import {scroll} from './scroll.js';
 
 const cursorTime = 500;
 const startX = canvas.padding;
@@ -50,6 +51,8 @@ export function cursorPosition (width, lastX, lastY) {
     if (width >= 0 && isBorder('right', width)) {
         cursorX = startX;
         cursorY += parseInt(font.size, 10);
+        stack.container.height = cursorY;
+        scroll.changeScroll();
         return;
     }
 
@@ -58,6 +61,8 @@ export function cursorPosition (width, lastX, lastY) {
         // 删除 先增加一个字符的长度 后面光标计算的时候减掉
         cursorX = lastX - width;
         cursorY = lastY;
+        stack.container.height = cursorY;
+        scroll.changeScroll();
         return;
     }
 };

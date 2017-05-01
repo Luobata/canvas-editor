@@ -8,6 +8,7 @@ export let cursor = {
     y: 0,
     show: false
 };
+
 export let scroll = {
     x: 0,
     y: 0,
@@ -15,5 +16,10 @@ export let scroll = {
     color: '#D3D3D3',
     radius: 2,
     width: 5,
-    height: 20
+    height: 0
+};
+
+export let container = {
+    width: 0,
+    height: 0
 };

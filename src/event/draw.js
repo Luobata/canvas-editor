@@ -74,7 +74,7 @@ export function scroll () {
     can.ctx.closePath();
 };
 
-export function drawAll (ctx) {
+export function drawAll () {
     clearCanvas();
     stack.txtArr.forEach(function (item) {
         drawTxt(can.ctx, item);

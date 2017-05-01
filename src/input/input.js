@@ -58,5 +58,5 @@ export function input (e, ctx, canvas) {
     anylyse(e, ctx);
     stack.cursor.x = cursorX;
     draw.clearCanvas(ctx, canvas);
-    draw.drawAll(ctx);
+    draw.drawAll();
 };

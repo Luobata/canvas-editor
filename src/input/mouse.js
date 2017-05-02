@@ -1,3 +1,5 @@
+import * as draw from '../event/draw.js';
+
 const addEvent = (function(window, undefined) {        
     var _eventCompat = function(event) {
         var type = event.type;
@@ -36,6 +38,7 @@ const addEvent = (function(window, undefined) {
     return function() {};    
 })(window);
 
+const scrollDis = 15;
 
 export const mouse = {
     wheelEvent: function (dom) {
@@ -46,6 +49,6 @@ export const mouse = {
     },
     wheel: function (e) {
         // e.delta > 0 向上
-        console.log(e);
+        draw.scroller(e.delta, scrollDis);
     },
 };

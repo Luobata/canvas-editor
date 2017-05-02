@@ -25,4 +25,7 @@ export function canvasInit (can) {
     canvasInnerHeight = can.offsetHeight - padding;
     stack.container.width = canvasInnerWidth;
     stack.container.height = canvasInnerHeight;
+
+    stack.cursor.x = padding;
+    stack.cursor.y = padding;
 };

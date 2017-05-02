@@ -11,13 +11,18 @@ import {
     cursorY
 } from '../layout/cursor.js';
 
-var context;
+let context;
 
-var drawTxt = function (ctx, txt) {
+let drawTxt = function (ctx, txt) {
     ctx.txt = `${txt.weight} ${txt.size} ${txt.family} ${txt.color}`;
     ctx.fillText(txt.value, txt.cursorX, txt.cursorY);
 };
-export var clearCanvas = function () {
+
+const frame = 60; // 帧数
+const ticker = 1 * 1000 / frame; // 每帧的时间
+const frameTime = 500; // 每次滚动的时间
+
+export let clearCanvas = function () {
     can.canvas.height = can.canvas.height; 
 };
 
@@ -54,8 +59,8 @@ export function cursor (ctx, x, y) {
     ctx.lineWidth = 1;
     ctx.lineCap = 'square';
     ctx.beginPath();
-    ctx.moveTo(cursorX + 1, cursorY - parseInt(font.size, 10) + 1);
-    ctx.lineTo(cursorX + 1, cursorY + 1);
+    ctx.moveTo(x + 1, y + 1);
+    ctx.lineTo(x + 1, y + parseInt(font.size, 10) + 1);
     ctx.stroke();
     ctx.closePath();
 };
@@ -72,6 +77,30 @@ export function scroll () {
     can.ctx.arcTo(stack.scroll.x, stack.scroll.y, stack.scroll.x + stack.scroll.width, stack.scroll.y, + stack.scroll.radius);
     can.ctx.fill();
     can.ctx.closePath();
+};
+
+/*
+ * @description 描述滚动效果
+ * @number dir 滚动方向 1代表上 -1 代表下
+ * @number distance 滚动的距离
+ */
+export function scroller (dir, distance) {
+    let lon = dir * distance / frame / (frameTime / 1000);
+    let i;
+    let timer = null;
+    let time = new Date().getTime();
+    timer = setInterval(function () {
+        if (new Date().getTime() - time < frameTime) {
+            for (i of stack.txtArr) {
+                i.cursorY += lon;
+            }
+            stack.cursor.y += lon;
+            drawAll();
+        } else {
+            clearInterval(timer);
+            timer = null;
+        }
+    }, ticker);
 };
 
 export function drawAll () {

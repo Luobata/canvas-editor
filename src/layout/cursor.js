@@ -52,6 +52,7 @@ export function cursorPosition (width, lastX, lastY) {
         cursorX = startX;
         cursorY += parseInt(font.size, 10);
         stack.container.height = cursorY;
+        stack.cursor.y += parseInt(font.size, 10);
         scroll.changeScroll();
         return;
     }
@@ -63,6 +64,7 @@ export function cursorPosition (width, lastX, lastY) {
         cursorY = lastY;
         stack.container.height = cursorY;
         scroll.changeScroll();
+        stack.cursor.y = cursorY - parseInt(font.size, 10);
         return;
     }
 };

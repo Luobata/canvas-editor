@@ -31,7 +31,7 @@ export let scroll = {
      */
     disabled: function (dir) {
         if (dir > 0) {
-            return stack.scroll.y < 0;
+            return stack.scroll.y <= 0;
         } else {
             return stack.scroll.y + stack.scroll.height > canvas.canvasHeight;
         }

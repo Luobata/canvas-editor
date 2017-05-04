@@ -46,6 +46,10 @@ export function cursorChange (width) {
     cursorX += width;
 };
 
+export function cursorYChange (height) {
+    cursorY += height;
+};
+
 export function cursorPosition (width, lastX, lastY) {
     // 输入遇到右边界
     if (width >= 0 && isBorder('right', width)) {

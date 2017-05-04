@@ -9,7 +9,8 @@ import * as can from '../layout/canvas.js';
 import { 
     cursorPosition,
     cursorX,
-    cursorY
+    cursorY,
+    cursorYChange
 } from '../layout/cursor.js';
 
 let context;
@@ -21,7 +22,7 @@ let drawTxt = function (ctx, txt) {
 
 const frame = 60; // 帧数
 const ticker = 1 * 1000 / frame; // 每帧的时间
-const frameTime = 500; // 每次滚动的时间
+const frameTime = 250; // 每次滚动的时间
 
 export let clearCanvas = function () {
     can.canvas.height = can.canvas.height; 
@@ -90,12 +91,14 @@ export function scroller (dir, distance) {
     let i;
     let timer = null;
     let time = new Date().getTime();
+    clearInterval(timer);
     timer = setInterval(() => {
         if (new Date().getTime() - time < frameTime && !scrollObj.disabled(dir)) {
             for (i of stack.txtArr) {
                 i.cursorY += lon;
             }
             stack.cursor.y += lon;
+            cursorYChange(lon);
             stack.scroll.y += scrollObj.scrollMoveCal(lon);
             drawAll();
         } else {

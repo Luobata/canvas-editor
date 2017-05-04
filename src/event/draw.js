@@ -3,6 +3,7 @@
  */
 
 import { font } from '../layout/font.js';
+import { scroll as scrollObj } from '../layout/scroll.js';
 import * as stack from '../layout/stack.js';
 import * as can from '../layout/canvas.js';
 import { 
@@ -81,7 +82,7 @@ export function scroll () {
 
 /*
  * @description 描述滚动效果
- * @number dir 滚动方向 1代表上 -1 代表下
+ * @number dir 滚动方向 1代表上 -1代表下
  * @number distance 滚动的距离
  */
 export function scroller (dir, distance) {
@@ -89,12 +90,13 @@ export function scroller (dir, distance) {
     let i;
     let timer = null;
     let time = new Date().getTime();
-    timer = setInterval(function () {
-        if (new Date().getTime() - time < frameTime) {
+    timer = setInterval(() => {
+        if (new Date().getTime() - time < frameTime && !scrollObj.disabled(dir)) {
             for (i of stack.txtArr) {
                 i.cursorY += lon;
             }
             stack.cursor.y += lon;
+            stack.scroll.y += scrollObj.scrollMoveCal(lon);
             drawAll();
         } else {
             clearInterval(timer);

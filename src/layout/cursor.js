@@ -6,7 +6,7 @@ import { font } from './font.js';
 import * as canvas from './canvas.js';
 import * as stack from './stack.js';
 import * as draw from '../event/draw.js';
-import {scroll} from './scroll.js';
+import { scroll } from './scroll.js';
 
 const cursorTime = 500;
 const startX = canvas.padding;

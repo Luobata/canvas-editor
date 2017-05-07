@@ -5,6 +5,7 @@
 import * as draw from '../event/draw.js';
 import * as stack from '../layout/stack.js';
 import { font } from '../layout/font.js';
+import { Obs } from '../lib/observer.js';
 import {
     cursorX,
     cursorY,
@@ -21,7 +22,7 @@ var anylyse = function (input, ctx) {
 
     // backspace 并且存在内容
     if (code === 8 && (pop = stack.txtArr.pop())) {
-        wid = draw.txtLenth(ctx, pop.value);
+        wid = draw.txtLenth(pop.value);
         cursorPosition( - wid, pop.cursorX, pop.cursorY);
         cursorChange( - wid);
         return;
@@ -35,9 +36,9 @@ var anylyse = function (input, ctx) {
         (code >= 186 && code <= 192) ||
         (code >= 219 && code <= 222) ||
         (code === 'txt')) {
-        wid = draw.txtLenth(ctx, input.key); 
+        wid = draw.txtLenth(input.key); 
         cursorPosition(wid);
-        stack.txtArr.push({
+        stack.txtArr.push(new Obs({
             size: font.size,
             weight: font.weight,
             family: font.family,
@@ -45,7 +46,7 @@ var anylyse = function (input, ctx) {
             cursorX: cursorX,
             cursorY: cursorY,
             value: input.key
-        });
+        }));
         cursorChange(wid);
     }
 };

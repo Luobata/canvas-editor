@@ -2,16 +2,26 @@
  * @description 画布对象队列，每次从队列中画
  */
 
-import {obs} from '../lib/observer.js';
+import { Obs } from '../lib/observer.js';
 
+/*
+ * txtArr Object Array
+ * size: font-size (size === height)
+ * weight: font-weight
+ * family: font-family
+ * color: color
+ * cursorX: positionX
+ * cursorY: positionY
+ * value: value
+ */
 export let txtArr = [];
-export let cursor = {
+export let cursor = new Obs({
     x: 0,
     y: 0,
     show: false
-};
+});
 
-export let scroll = new obs({
+export let scroll = new Obs({
     x: 0,
     y: 0,
     show: false,

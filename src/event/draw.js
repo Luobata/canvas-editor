@@ -43,13 +43,13 @@ export function txt (ctx, key, delFont) {
     }
 };
 
-export function txtLenth (ctx, key, delFont) {
+export function txtLenth (key, delFont) {
     var wid;
     var weight = delFont ? delFont.weight : font.weight;
     var size = delFont ? delFont.size : font.size;
     var family = delFont ? delFont.family : font.family;
-    ctx.font = `${weight} ${size} ${family}`;
-    wid = ctx.measureText(key).width;
+    can.ctx.font = `${weight} ${size} ${family}`;
+    wid = can.ctx.measureText(key).width;
 
     return wid;
 };
@@ -57,13 +57,13 @@ export function txtLenth (ctx, key, delFont) {
 /**
  * @description 光标函数 需要判断鼠标点击位置决定光标
  */
-export function cursor (ctx, x, y) {
+export function cursor (ctx, x, y, height) {
     ctx.strokeStyle = stack.cursor.show? '#FFF' : '#000';
     ctx.lineWidth = 1;
     ctx.lineCap = 'square';
     ctx.beginPath();
     ctx.moveTo(x + 1, y + 1);
-    ctx.lineTo(x + 1, y + parseInt(font.size, 10) + 1);
+    ctx.lineTo(x + 1, y + height + 1);
     ctx.stroke();
     ctx.closePath();
 };
@@ -130,6 +130,6 @@ export function drawAll () {
     stack.txtArr.forEach(function (item) {
         drawTxt(can.ctx, item);
     });
-    cursor(can.ctx, stack.cursor.x, stack.cursor.y);
+    cursor(can.ctx, stack.cursor.x, stack.cursor.y, parseInt(font.size, 10));
     scroll();
 };

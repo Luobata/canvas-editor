@@ -6,7 +6,8 @@ import * as draw from './draw.js';
 import * as stack from '../layout/stack.js';
 import {
     cursorX,
-    cursorY
+    cursorY,
+    cursorClick
 } from '../layout/cursor.js';
 import { input, isEnter } from '../input/input.js';
 
@@ -57,12 +58,8 @@ export default function init (canvas, ctx, text) {
     });
     canvas.addEventListener('blur', function (e) {
     });
-    canvas.addEventListener('mousedown', function (e) {
-        stack.cursor = {
-            x: e.layerX,
-            y: e.layerY,
-            show: true
-        };
-        draw.cursor(ctx, e.layerX, e.layerY);
+    text.addEventListener('mousedown', function (e) {
+        cursorClick(e.layerX, e.layerY);
+        draw.drawAll();
     });
 };

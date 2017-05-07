@@ -34,6 +34,7 @@ class Observer {
                         set: function (val) {
                             // 数据劫持
                             obj[key] = val;
+                            if (key === 'show') return;
                             console.log(key + ' : ' + val);
                         },
                         get: function () {
@@ -48,4 +49,4 @@ class Observer {
     }
 };
 
-export const obs = Observer;
+export const Obs = Observer;

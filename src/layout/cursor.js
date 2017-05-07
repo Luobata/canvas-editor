@@ -72,3 +72,18 @@ export function cursorPosition (width, lastX, lastY) {
         return;
     }
 };
+
+/**
+ * @description 根据点击位置 计算光标位置
+ */
+export function cursorClick (x, y) {
+    let i;
+    if (y < canvas.padding) y = canvas.padding;
+    if (x < canvas.padding) x = canvas.padding;
+    for (i of stack.txtArr) {
+        if (i.cursorX <= x && i.cursorY - parseInt(i.size, 10) <= y && i.cursorY >= y) {
+            stack.cursor.x = i.cursorX + draw.txtLenth(i.value);
+            stack.cursor.y = i.cursorY - parseInt(i.size, 10);
+        }
+    }
+};

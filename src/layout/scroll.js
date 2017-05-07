@@ -11,6 +11,7 @@ export let scroll = {
         // 滚动条高度 = canvas容器高度^2 / 容器的高度
         // barwidth / wrapwidth = wrapwidth / contentwidth
         stack.scroll.height = canvas.canvasInnerHeight * canvas.canvasInnerHeight / stack.container.height;
+        stack.scroll.show = true;
         draw.drawAll();
     },
     /*
@@ -30,6 +31,8 @@ export let scroll = {
      * @number dir 滚动方向 1代表上 -1代表下
      */
     disabled: function (dir) {
+        if (!stack.scroll.show) return true;
+
         if (dir > 0) {
             return stack.scroll.y <= 0;
         } else {

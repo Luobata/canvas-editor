@@ -4,6 +4,7 @@
 
 import keybord from '../event/keybord.js';
 import * as can from './canvas';
+import {hack} from '../lib/hack.js';
 
 var addText = function (dom, canvas) {
     var wid = canvas.offsetWidth;
@@ -29,6 +30,7 @@ export var init = function (selector) {
 
     var text = addText(dom, canvas);
     var ctx;
+    hack();
     can.canvasInit(canvas);
     
 

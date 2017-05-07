@@ -78,11 +78,15 @@ export function cursorPosition (width, lastX, lastY) {
  */
 export function cursorClick (x, y) {
     let i;
+    let flag = true;
     if (y < canvas.padding) y = canvas.padding;
-    if (x < canvas.padding) x = canvas.padding;
+    if (x < canvas.padding) {
+        x = canvas.padding;
+        flag = false; 
+    }
     for (i of stack.txtArr) {
         if (i.cursorX <= x && i.cursorY - parseInt(i.size, 10) <= y && i.cursorY >= y) {
-            stack.cursor.x = i.cursorX + draw.txtLenth(i.value);
+            stack.cursor.x = i.cursorX + (flag ? draw.txtLenth(i.value) : 0);
             stack.cursor.y = i.cursorY - parseInt(i.size, 10);
         }
     }

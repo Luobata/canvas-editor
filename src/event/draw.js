@@ -14,6 +14,7 @@ import {
 } from '../layout/cursor.js';
 
 let context;
+let scrollArr = []; // 滚动事件队列
 
 let drawTxt = function (ctx, txt) {
     ctx.txt = `${txt.weight} ${txt.size} ${txt.family} ${txt.color}`;
@@ -89,23 +90,39 @@ export function scroll () {
 export function scroller (dir, distance) {
     let lon = dir * distance / frame / (frameTime / 1000);
     let i;
-    let timer = null;
+    let timer;
     let time = new Date().getTime();
-    clearInterval(timer);
-    timer = setInterval(() => {
-        if (new Date().getTime() - time < frameTime && !scrollObj.disabled(dir)) {
-            for (i of stack.txtArr) {
-                i.cursorY += lon;
+    scrollArr.push({
+        dir: dir,
+        lon: lon
+    });
+
+    let stopTimer = () => {
+        clearInterval(timer);
+        timer = null;
+        time = new Date().getTime();
+    };
+    let timerInit = (scroll) => {
+        timer = setInterval(() => {
+            if (new Date().getTime() - time < frameTime && !scrollObj.disabled(scroll.dir)) {
+                for (i of stack.txtArr) {
+                    i.cursorY += scroll.lon;
+                }
+                stack.cursor.y += scroll.lon;
+                cursorYChange(scroll.lon);
+                stack.scroll.y += scrollObj.scrollMoveCal(scroll.lon);
+                drawAll();
+            } else if (scrollArr.length) {
+                stopTimer();
+                timerInit(scrollArr.pop());
+            } else {
+                stopTimer();
             }
-            stack.cursor.y += lon;
-            cursorYChange(lon);
-            stack.scroll.y += scrollObj.scrollMoveCal(lon);
-            drawAll();
-        } else {
-            clearInterval(timer);
-            timer = null;
-        }
-    }, ticker);
+        }, ticker);
+    };
+    if (scrollArr.length === 1) {
+        timerInit(scrollArr.pop());
+    }
 };
 
 export function drawAll () {

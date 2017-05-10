@@ -6,7 +6,8 @@ import { Obs } from '../lib/observer.js';
 
 /*
  * txtArr Object Array
- * size: font-size (size === height)
+ * size: font-size 12px
+ * height: parseInt(size, 10)
  * weight: font-weight
  * family: font-family
  * color: color
@@ -35,3 +36,5 @@ export let container = {
     width: 0,
     height: 0
 };
+
+export const txtMarginBottom = 1;

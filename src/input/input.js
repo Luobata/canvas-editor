@@ -42,6 +42,7 @@ var anylyse = function (input, ctx) {
             size: font.size,
             weight: font.weight,
             family: font.family,
+            height: parseInt(font.size, 10),
             color: font.color,
             cursorX: cursorX,
             cursorY: cursorY,

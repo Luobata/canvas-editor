@@ -32,15 +32,23 @@ var isBorder = function (dir, width) {
     var flag = false;
     switch (dir) {
         case 'left':
-        flag = cursorX === startX;
-        break;
+            flag = cursorX === startX;
+            break;
         case 'right':
-        flag = cursorX + width > canvas.canvasWidth + endY;
-        break;
+            flag = cursorX + width > canvas.canvasWidth + endY;
+            break;
+        case 'bottom':
+            flag = getBottom() > 0 ? true : false;
+            break;
     }
 
     return flag;
 };
+
+var getBottom = function () {
+    return stack.cursor.y + stack.txtArr[stack.txtArr.length - 1].height - (canvas.canvasHeight - stack.txtMarginBottom);
+};
+
 
 export function cursorChange (width) {
     cursorX += width;
@@ -58,6 +66,11 @@ export function cursorPosition (width, lastX, lastY) {
         stack.container.height = cursorY;
         stack.cursor.y += parseInt(font.size, 10);
         scroll.changeScroll();
+        if (isBorder('bottom')) {
+            // 遇到下边界
+            console.log(getBottom());
+            draw.scrollerIme(-1, getBottom());
+        }
         return;
     }
 

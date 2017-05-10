@@ -82,6 +82,17 @@ export function scroll () {
     can.ctx.closePath();
 };
 
+function scrollCore(lon) {
+    var i;
+    for (i of stack.txtArr) {
+        i.cursorY += lon;
+    }
+    stack.cursor.y += lon;
+    cursorYChange(lon);
+    stack.scroll.y += scrollObj.scrollMoveCal(lon);
+    drawAll();
+}
+
 /*
  * @description 描述滚动效果
  * @number dir 滚动方向 1代表上 -1代表下
@@ -105,13 +116,7 @@ export function scroller (dir, distance) {
     let timerInit = (scroll) => {
         timer = setInterval(() => {
             if (new Date().getTime() - time < frameTime && !scrollObj.disabled(scroll.dir)) {
-                for (i of stack.txtArr) {
-                    i.cursorY += scroll.lon;
-                }
-                stack.cursor.y += scroll.lon;
-                cursorYChange(scroll.lon);
-                stack.scroll.y += scrollObj.scrollMoveCal(scroll.lon);
-                drawAll();
+                scrollCore(scroll.lon);
             } else if (scrollArr.length) {
                 stopTimer();
                 timerInit(scrollArr.pop());
@@ -123,6 +128,13 @@ export function scroller (dir, distance) {
     if (scrollArr.length === 1) {
         timerInit(scrollArr.pop());
     }
+};
+
+/**
+ * @description 瞬间滚动 没有动画
+ */
+export function scrollerIme (dir, dis) {
+    scrollCore(dir * dis);
 };
 
 export function drawAll () {

@@ -10,9 +10,19 @@ export let scroll = {
     changeScroll: function () {
         // 滚动条高度 = canvas容器高度^2 / 容器的高度
         // barwidth / wrapwidth = wrapwidth / contentwidth
-        stack.scroll.height = canvas.canvasInnerHeight * canvas.canvasInnerHeight / stack.container.height;
+        // stack.scroll.height = canvas.canvasInnerHeight * canvas.canvasInnerHeight / stack.container.height;
+        if (canvas.canvasHeight >= stack.container.height) return;
+        var height = Math.pow(canvas.canvasHeight, 2) / stack.container.height;
+        var changeHeight = stack.scroll.height - height;
+        stack.scroll.y = stack.scroll.show ? stack.scroll.y * height / stack.scroll.height : 0;
+        stack.scroll.height = height;
         stack.scroll.show = true;
         draw.drawAll();
+    },
+    /*
+     * @description 当前滚动条距离的位置
+     */
+    scrollPosition: function () {
     },
     /*
      * @description 计算滚动条唯一距离

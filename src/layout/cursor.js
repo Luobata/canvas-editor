@@ -58,13 +58,13 @@ export function cursorYChange (height) {
     cursorY += height;
 };
 
-export function cursorPosition (width, lastX, lastY) {
+export function cursorPosition (width, lastX, lastY, height) {
     // 输入遇到右边界
     if (width >= 0 && isBorder('right', width)) {
         cursorX = startX;
         cursorY += parseInt(font.size, 10);
-        stack.container.height = cursorY;
-        stack.cursor.y += parseInt(font.size, 10);
+        stack.container.height += height;
+        stack.cursor.y += height;
         scroll.changeScroll();
         if (isBorder('bottom')) {
             // 遇到下边界

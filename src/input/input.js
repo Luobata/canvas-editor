@@ -37,8 +37,9 @@ var anylyse = function (input, ctx) {
         (code >= 219 && code <= 222) ||
         (code === 'txt')) {
         wid = draw.txtLenth(input.key); 
-        cursorPosition(wid);
+        cursorPosition(wid, '', '', parseInt(font.size, 10));
         stack.txtArr.push(new Obs({
+        //stack.txtArr.push(({
             size: font.size,
             weight: font.weight,
             family: font.family,

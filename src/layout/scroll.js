@@ -30,11 +30,7 @@ export let scroll = {
      */
     scrollMoveCal: function (dis) {
         // 移动高度比例占总体比例相等
-        let moveHeight = dis;
-        let marginHeight = stack.container.height - canvas.canvasInnerHeight;
-        let marginScrollHeight = canvas.canvasHeight - stack.scroll.height;
-
-        return - marginScrollHeight * moveHeight / marginHeight;
+        return - canvas.canvasHeight * dis / stack.container.height;
     },
     /**
      * @description 判断是否到达边界

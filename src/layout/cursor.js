@@ -2,11 +2,12 @@
  * @description 定位光标
  */
 
-import { font } from './font.js';
+import {font} from './font.js';
 import * as canvas from './canvas.js';
 import * as stack from './stack.js';
 import * as draw from '../event/draw.js';
-import { scroll } from './scroll.js';
+import {scroll} from './scroll.js';
+import {Obs} from '../lib/observer.js';
 
 const cursorTime = 500;
 const startX = canvas.padding;
@@ -28,7 +29,7 @@ export var cursorTimer = (function () {
     return 
 }());
 
-var isBorder = function (dir, width) {
+var isBorder = function (dir, width, cursorX) {
     var flag = false;
     switch (dir) {
         case 'left':
@@ -49,6 +50,22 @@ var getBottom = function () {
     return stack.cursor.y + stack.txtArr[stack.txtArr.length - 1].height - (canvas.canvasHeight - stack.txtMarginBottom);
 };
 
+let format = function (index) {
+    let i;
+    let item;
+    let wid;
+    for (i = index; i < stack.txtArr.length; i++) {
+        item = stack.txtArr[i];
+        wid = draw.txtLenth(item.value);
+        if (isBorder('right', wid, item.cursorX)) {
+            item.cursorX = startX;
+            item.cursorY += parseInt(font.size, 10);
+        } else {
+            item.cursorX += wid;
+        }
+    }
+};
+
 
 export function cursorChange (width) {
     cursorX += width;
@@ -60,7 +77,7 @@ export function cursorYChange (height) {
 
 export function cursorPosition (width, lastX, lastY, height) {
     // 输入遇到右边界
-    if (width >= 0 && isBorder('right', width)) {
+    if (width >= 0 && isBorder('right', width, cursorX)) {
         cursorX = startX;
         cursorY += parseInt(font.size, 10);
         stack.container.height += height;
@@ -75,7 +92,7 @@ export function cursorPosition (width, lastX, lastY, height) {
     }
 
     // 删除遇到左边界
-    if (width < 0 && isBorder('left', width)) {
+    if (width < 0 && isBorder('left', width, cursorX)) {
         // 删除 先增加一个字符的长度 后面光标计算的时候减掉
         cursorX = lastX - width;
         cursorY = lastY;
@@ -99,8 +116,33 @@ export function cursorClick (x, y) {
     }
     for (i of stack.txtArr) {
         if (i.cursorX <= x && i.cursorY - parseInt(i.size, 10) <= y && i.cursorY >= y) {
-            stack.cursor.x = i.cursorX + (flag ? draw.txtLenth(i.value) : 0);
+            stack.cursor.x = cursorX = i.cursorX + (flag ? draw.txtLenth(i.value) : 0);
             stack.cursor.y = i.cursorY - parseInt(i.size, 10);
+            cursorY = i.cursorY;
         }
+    }
+};
+
+/**
+ * @description 重排文字
+ */
+export let addFont = function (font) {
+    var i;
+    var item;
+    var isEnd = true;
+    for (i = 0; i < stack.txtArr.length; i++) {
+        item = stack.txtArr[i];
+        if (item.cursorX >= font.cursorX && item.cursorY >= font.cursorY) {
+            isEnd = false;
+            stack.txtArr.splice(i, 0, new Obs(font));
+            break;
+        }
+    }
+    if (isEnd) {
+        stack.txtArr.push(new Obs(font));
+    }
+
+    if (i !== (stack.txtArr.length - 1)) {
+        format(i + 1);
     }
 };

@@ -1,4 +1,7 @@
-export var font = {
+import * as stack from '../layout/stack.js';
+import {Obs} from '../lib/observer.js';
+
+export let font = {
     size: '12px',
     family: 'consolas',
     family: 'MicrosoftYahei',
@@ -6,6 +9,5 @@ export var font = {
     color: '#000'
 };
 
-export var changeFont = function () {
-
+export let changeFont = function () {
 };

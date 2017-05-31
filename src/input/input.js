@@ -4,13 +4,14 @@
 
 import * as draw from '../event/draw.js';
 import * as stack from '../layout/stack.js';
-import { font } from '../layout/font.js';
-import { Obs } from '../lib/observer.js';
+import {font} from '../layout/font.js';
+import {Obs} from '../lib/observer.js';
 import {
     cursorX,
     cursorY,
     cursorPosition,
-    cursorChange
+    cursorChange,
+    addFont
 } from '../layout/cursor.js';
 
 var anylyse = function (input, ctx) {
@@ -38,8 +39,7 @@ var anylyse = function (input, ctx) {
         (code === 'txt')) {
         wid = draw.txtLenth(input.key); 
         cursorPosition(wid, '', '', parseInt(font.size, 10));
-        stack.txtArr.push(new Obs({
-        //stack.txtArr.push(({
+        addFont({
             size: font.size,
             weight: font.weight,
             family: font.family,
@@ -48,7 +48,7 @@ var anylyse = function (input, ctx) {
             cursorX: cursorX,
             cursorY: cursorY,
             value: input.key
-        }));
+        });
         cursorChange(wid);
     }
 };

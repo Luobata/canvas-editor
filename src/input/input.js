@@ -6,13 +6,7 @@ import * as draw from '../event/draw.js';
 import * as stack from '../layout/stack.js';
 import {font} from '../layout/font.js';
 import {Obs} from '../lib/observer.js';
-import {
-    cursorX,
-    cursorY,
-    cursorPosition,
-    cursorChange,
-    addFont
-} from '../layout/cursor.js';
+import * as cursor from '../layout/cursor.js';
 
 var anylyse = function (input, ctx) {
     var pop;
@@ -22,10 +16,13 @@ var anylyse = function (input, ctx) {
 
 
     // backspace 并且存在内容
-    if (code === 8 && (pop = stack.txtArr.pop())) {
+    // if (code === 8 && (pop = stack.txtArr.pop())) {
+    if (code === 8) {
+        cursor.deleteFont(cursor.cursorX, cursor.cursorY);
+        return;
         wid = draw.txtLenth(pop.value);
-        cursorPosition( - wid, pop.cursorX, pop.cursorY);
-        cursorChange( - wid);
+        cursor.cursorPosition( - wid, pop.cursorX, pop.cursorY);
+        cursor.cursorChange( - wid);
         return;
     }
 
@@ -38,18 +35,19 @@ var anylyse = function (input, ctx) {
         (code >= 219 && code <= 222) ||
         (code === 'txt')) {
         wid = draw.txtLenth(input.key); 
-        cursorPosition(wid, '', '', parseInt(font.size, 10));
-        addFont({
+        cursor.cursorPosition(wid, '', '', parseInt(font.size, 10));
+        cursor.addFont({
             size: font.size,
             weight: font.weight,
             family: font.family,
+            width: wid,
             height: parseInt(font.size, 10),
             color: font.color,
-            cursorX: cursorX,
-            cursorY: cursorY,
+            cursorX: cursor.cursorX,
+            cursorY: cursor.cursorY,
             value: input.key
         });
-        cursorChange(wid);
+        cursor.cursorChange(wid);
     }
 };
 
@@ -59,7 +57,7 @@ export function isEnter (input) {
 
 export function input (e, ctx, canvas) {
     anylyse(e, ctx);
-    stack.cursor.x = cursorX;
+    stack.cursor.x = cursor.cursorX;
     draw.clearCanvas(ctx, canvas);
     draw.drawAll();
 };

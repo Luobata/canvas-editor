@@ -8,6 +8,7 @@ import { Obs } from '../lib/observer.js';
  * txtArr Object Array
  * size: font-size 12px
  * height: parseInt(size, 10)
+ * width: draw.txtLength()
  * weight: font-weight
  * family: font-family
  * color: color

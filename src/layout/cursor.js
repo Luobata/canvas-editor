@@ -50,21 +50,6 @@ var getBottom = function () {
     return stack.cursor.y + stack.txtArr[stack.txtArr.length - 1].height - (canvas.canvasHeight - stack.txtMarginBottom);
 };
 
-let format = function (index) {
-    let i;
-    let item;
-    let wid;
-    for (i = index; i < stack.txtArr.length; i++) {
-        item = stack.txtArr[i];
-        wid = draw.txtLenth(item.value);
-        if (isBorder('right', wid, item.cursorX)) {
-            item.cursorX = startX;
-            item.cursorY += parseInt(font.size, 10);
-        } else {
-            item.cursorX += wid;
-        }
-    }
-};
 
 
 export function cursorChange (width) {
@@ -123,13 +108,34 @@ export function cursorClick (x, y) {
     }
 };
 
+let format = function (index, font) {
+    let i;
+    let item;
+    let wid;
+    for (i = index; i < stack.txtArr.length; i++) {
+        item = stack.txtArr[i];
+        wid = draw.txtLenth(item.value);
+        wid = font ? - wid : wid;
+        if (isBorder('left', wid, item.cursorX) && font) {
+            // TODO判断删除一个元素后 下一行的第一个元素是否上来是个问题
+            item.cursorX = font.cursorX;
+            item.cursorY = font.cursorY;
+        } else if (isBorder('right', wid, item.cursorX) && !font) {
+            item.cursorX = startX;
+            item.cursorY += parseInt(font.size, 10);
+        } else {
+            item.cursorX += wid;
+        }
+    }
+};
+
 /**
  * @description 重排文字
  */
 export let addFont = function (font) {
-    var i;
-    var item;
-    var isEnd = true;
+    let i;
+    let item;
+    let isEnd = true;
     for (i = 0; i < stack.txtArr.length; i++) {
         item = stack.txtArr[i];
         if (item.cursorX >= font.cursorX && item.cursorY >= font.cursorY) {
@@ -144,5 +150,29 @@ export let addFont = function (font) {
 
     if (i !== (stack.txtArr.length - 1)) {
         format(i + 1);
+    }
+};
+
+export let deleteFont = function (cursorX, cursorY) {
+    let i;
+    let item;
+    let isEnd = true;
+    let deleteFun = function (i) {
+        let item = stack.txtArr.splice(i, 1)[0];
+        format(i, item);
+        cursorPosition(- item.width, item.cursorX, item.cursorY);
+        cursorChange(- item.width);
+    };
+    for (i = 0; i < stack.txtArr.length; i++) {
+        item = stack.txtArr[i];
+        if ((item.cursorX >= cursorX && item.cursorY === cursorY) || cursorY < item.cursorY) {
+            deleteFun(i - 1);
+            isEnd = false;
+            break;
+        }
+    }
+
+    if (isEnd) {
+        deleteFun(stack.txtArr.length - 1);
     }
 };

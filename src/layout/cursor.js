@@ -108,19 +108,19 @@ export function cursorClick (x, y) {
     }
 };
 
-let format = function (index, font) {
+let format = function (index, fonts) {
     let i;
     let item;
     let wid;
     for (i = index; i < stack.txtArr.length; i++) {
         item = stack.txtArr[i];
         wid = draw.txtLenth(item.value);
-        wid = font ? - wid : wid;
-        if (isBorder('left', wid, item.cursorX) && font) {
+        wid = fonts ? - wid : wid;
+        if (isBorder('left', wid, item.cursorX) && fonts) {
             // TODO判断删除一个元素后 下一行的第一个元素是否上来是个问题
-            item.cursorX = font.cursorX;
-            item.cursorY = font.cursorY;
-        } else if (isBorder('right', wid, item.cursorX) && !font) {
+            item.cursorX = fonts.cursorX;
+            item.cursorY = fonts.cursorY;
+        } else if (isBorder('right', wid, item.cursorX + parseInt(font.size, 10)) && !fonts) {
             item.cursorX = startX;
             item.cursorY += parseInt(font.size, 10);
         } else {
@@ -138,7 +138,7 @@ export let addFont = function (font) {
     let isEnd = true;
     for (i = 0; i < stack.txtArr.length; i++) {
         item = stack.txtArr[i];
-        if (item.cursorX >= font.cursorX && item.cursorY >= font.cursorY) {
+        if ((item.cursorX >= font.cursorX && item.cursorY === font.cursorY) || font.cursorY < item.cursorY) {
             isEnd = false;
             stack.txtArr.splice(i, 0, new Obs(font));
             break;
@@ -158,6 +158,7 @@ export let deleteFont = function (cursorX, cursorY) {
     let item;
     let isEnd = true;
     let deleteFun = function (i) {
+        if (i < 0) return;
         let item = stack.txtArr.splice(i, 1)[0];
         format(i, item);
         cursorPosition(- item.width, item.cursorX, item.cursorY);

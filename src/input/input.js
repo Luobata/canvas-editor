@@ -16,13 +16,8 @@ var anylyse = function (input, ctx) {
 
 
     // backspace 并且存在内容
-    // if (code === 8 && (pop = stack.txtArr.pop())) {
     if (code === 8) {
         cursor.deleteFont(cursor.cursorX, cursor.cursorY);
-        return;
-        wid = draw.txtLenth(pop.value);
-        cursor.cursorPosition( - wid, pop.cursorX, pop.cursorY);
-        cursor.cursorChange( - wid);
         return;
     }
 

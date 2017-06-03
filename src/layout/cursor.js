@@ -66,6 +66,7 @@ export function cursorPosition (width, lastX, lastY, height) {
         cursorX = startX;
         cursorY += parseInt(font.size, 10);
         stack.container.height += height;
+        // stack.container.height = stack.txtArr[stack.txtArr.length - 1].innerHeight + 20;
         stack.cursor.y += height;
         scroll.changeScroll();
         if (isBorder('bottom')) {
@@ -140,6 +141,11 @@ export let addFont = function (font) {
         item = stack.txtArr[i];
         if ((item.cursorX >= font.cursorX && item.cursorY === font.cursorY) || font.cursorY < item.cursorY) {
             isEnd = false;
+            if (item.cursorX >= font.cursorX) {
+                font.innerHeight = item.innerHeight;
+            } else {
+                font.innerHeight = item.innerHeight + (font.cursorY - item.cursorY);
+            }
             stack.txtArr.splice(i, 0, new Obs(font));
             break;
         }

@@ -11,14 +11,17 @@ const ui;
 const init = function () {
     ui = {
         canvas: new Canvas(),
-        cursor: new Cursor(),
-        scroll: new Scroll(),
-        font: new font()
+        scroll: new Scroll()
+        //cursor: new Cursor(),
+        //scroll: new Scroll(),
+        //font: new font()
     };
+
+    return ui;
 };
 
 export default function ui() {
     constructor {
-        init();
+        return init();
     };
 };

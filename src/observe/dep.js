@@ -1,6 +1,8 @@
 /**
- * @description dep 发布者
+ * @description dep 主题对象事例
  */
+
+import type Watcher from './watcher.js';
 
 export default class Dep {
     subs: Array<Watcher>;
@@ -19,6 +21,6 @@ export default class Dep {
             i.update();
         }
     }
-}
+};
 
 Dep.target = null;

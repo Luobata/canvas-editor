@@ -79,7 +79,7 @@ export const defineProperty = function (
     });
 }
 
-export default function observe(obj) {
+export function observe(obj) {
     let observe = new Observer(obj);
 
     return observe;

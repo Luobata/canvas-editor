@@ -2,7 +2,10 @@
  * @ 初始化ui模块observe的入口 把ui模块转化为Observe模块
  */
 
-import observe from '../observe/index.js';
+import {observe, Observer} from '../observe/index.js';
+import {
+    isFun
+} from '../lib/util.js';
 
 export default function initUi(obj) {
     let $data = {};
@@ -16,15 +19,25 @@ export default function initUi(obj) {
         $data[i] = obj[i];
     }
 
-    initComputed($computed);
-    initData($data);
+    $data = initData($data);
+    initComputed($computed, $data);
 };
 
-const initComputed = function (obj) {
+const initComputed = function (
+    obj: object,
+    model: Observer
+) {
     console.log(obj);
+    for (let i in obj) {
+        if (!isFun(obj[i]) {
+            console.error(obj + ' ' + i + 'is not a computed function!');
+            continue;
+        }
+
+        // computed function
+    }
 };
 
 const initData = function (obj) {
-    const $data = observe(obj);
-    console.log($data);
+    return observe(obj);
 }

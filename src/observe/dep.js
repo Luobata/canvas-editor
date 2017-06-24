@@ -15,12 +15,29 @@ export default class Dep {
         this.subs.push(Watcher);
     };
 
+    depend () {
+        if (this.target) {
+            Dep.target.addDep(this);
+        }
+    };
+
     notify () {
         let sub = this.subs.slice();
         for (let i of sub) {
             i.update();
         }
-    }
+    };
 };
 
 Dep.target = null;
+const targetStack = [];
+
+export const pushTarget = function (
+    target: Watcher
+) {
+    this.target = target;
+}
+
+export const popTarget = function () {
+    this.target = null;
+}

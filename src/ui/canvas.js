@@ -23,7 +23,7 @@ export default class Canvas {
         this.innerWidth = this.width - this.padding * 2;
 
         this.computed = {
-            innerHeight => () {
+            innerHeight () {
                 const height = ui.font.heightCount + this.padding * 2;
                 return height - this.innerHeight ? height : this.innerHeight;
             }

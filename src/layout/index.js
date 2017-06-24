@@ -6,6 +6,8 @@ import keybord from '../event/keybord.js';
 import * as can from './canvas';
 import {hack} from '../lib/hack.js';
 
+import ui from '../ui/index.js';
+
 var addText = function (dom, canvas) {
     var wid = canvas.offsetWidth;
     var hei = canvas.offsetHeight;
@@ -38,4 +40,6 @@ export var init = function (selector) {
         ctx = canvas.getContext('2d');
         keybord(canvas, ctx, text);
     }
+
+    ui();
 };

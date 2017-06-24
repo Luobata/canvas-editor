@@ -6,22 +6,20 @@ import Cursor from './cursor.js';
 import Scroll from './scroll.js';
 import Font from './font.js';
 
-const ui;
+let ui;
 
 const init = function () {
     ui = {
-        canvas: new Canvas(),
-        scroll: new Scroll()
+        font: new Font({}, ui),
+        //canvas: new Canvas(obj, ui),
+        //scroll: new Scroll(obj, ui)
         //cursor: new Cursor(),
         //scroll: new Scroll(),
-        //font: new font()
     };
 
     return ui;
 };
 
 export default function ui() {
-    constructor {
-        return init();
-    };
+    return init();
 };

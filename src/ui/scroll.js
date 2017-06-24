@@ -19,13 +19,13 @@ export default class Scroll {
         this.scrollY = 0;
         this.scrollShow = false; // 默认不显示
         this.computed = {
-            scrollX => () {
+            scrollX () {
                 return ui.canvas.width - this.scrollWidth;
             },
-            scrollY => () {
+            scrollY () {
                 return this.getScrollHeight(ui) * this.scrollY / this.height;
             },
-            scrollHeight => () {
+            scrollHeight () {
                 return this.getScrollHeight(ui);
             }
         }

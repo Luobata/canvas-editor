@@ -12,7 +12,7 @@ export default class Canvas {
     innerHeight: number;
     innerWidth: number;
 
-    computed: object; // 计算属性，依赖其他模块的值
+    $computed: object; // 计算属性，依赖其他模块的值
 
     constructor (obj, ui) {
         // 数据初始化 考虑加入assert
@@ -22,7 +22,7 @@ export default class Canvas {
         this.innerHeight = this.height - this.padding * 2;
         this.innerWidth = this.width - this.padding * 2;
 
-        this.computed = {
+        this.$computed = {
             innerHeight () {
                 const height = ui.font.heightCount + this.padding * 2;
                 return height - this.innerHeight ? height : this.innerHeight;

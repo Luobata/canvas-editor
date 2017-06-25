@@ -14,7 +14,7 @@ const init = function () {
     ui = {};
     ui.font = initUi(new Font({}, ui));
     ui.canvas = initUi(new Canvas(config.canvas, ui));
-    ui.font.heightCount = 40;
+    ui.font.heightCount = 10;
 
     return ui;
 

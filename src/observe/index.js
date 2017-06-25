@@ -61,7 +61,6 @@ export const defineProperty = function (
             } else {
                 val = newVal;
             }
-
             dep.notify();
 
             console.log(key + ' : ' + val);

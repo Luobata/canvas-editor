@@ -13,8 +13,6 @@ export default class Font {
 
     constructor (obj, ui) {
         this.heightCount = 0;
-
-        return initUi(this);
     }
 
     pushFont (font) {

@@ -2,8 +2,6 @@
  * @description canvas对象
  */
 
-import initUi from './init.js';
-
 export default class Canvas {
 
     width: number;
@@ -24,11 +22,12 @@ export default class Canvas {
 
         this.$computed = {
             innerHeight () {
+                console.log(1);
                 const height = ui.font.heightCount + this.padding * 2;
                 return height - this.innerHeight ? height : this.innerHeight;
             }
         };
 
-        return initUi(this);
+        //return initUi(this);
     };
 };

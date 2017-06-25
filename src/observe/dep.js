@@ -15,6 +15,17 @@ export default class Dep {
         this.subs.push(Watcher);
     };
 
+    removeSub (Watcher) {
+        for (let i = 0; i < this.subs.length;) {
+            if (this.subs[i] === Watcher) {
+                this.subs.splice(i, 1);
+                return;
+            } else {
+                i++;
+            }
+        }
+    };
+
     depend () {
         if (this.target) {
             Dep.target.addDep(this);
@@ -30,14 +41,16 @@ export default class Dep {
 };
 
 Dep.target = null;
+// 可能存在递归调用 需要先把target存入队列中
 const targetStack = [];
 
 export const pushTarget = function (
     target: Watcher
 ) {
-    this.target = target;
+    targetStack.push(target);
+    Dep.target = target;
 }
 
 export const popTarget = function () {
-    this.target = null;
+    Dep.target = targetStack.pop();
 }

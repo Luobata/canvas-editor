@@ -6,10 +6,18 @@ import Cursor from './cursor.js';
 import Scroll from './scroll.js';
 import Font from './font.js';
 import * as config from './config.js';
+import initUi from './init.js';
 
 let ui;
 
 const init = function () {
+    ui = {};
+    ui.font = initUi(new Font({}, ui));
+    ui.canvas = initUi(new Canvas(config.canvas, ui));
+    ui.font.heightCount = 40;
+
+    return ui;
+
     ui = {
         font: new Font({}, ui),
         canvas: new Canvas(config.canvas, ui),
@@ -17,8 +25,6 @@ const init = function () {
         //cursor: new Cursor(),
         //scroll: new Scroll(),
     };
-
-    return ui;
 };
 
 export default function ui() {

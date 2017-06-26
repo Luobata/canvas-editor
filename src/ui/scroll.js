@@ -9,16 +9,19 @@ export default class Scroll {
     scrollX: number;
     scrollY: number;
     scrollRadius: number;
+    scrollColor: string;
     scrollShow: boolean;
 
-    computed: objcet; // 计算属性， 依赖其他模块的值
+    computed: object; // 计算属性， 依赖其他模块的值
 
     constructor (obj, ui) {
         this.scrollHeight = obj.height;
         this.scrollWidth = obj.width;
+        this.scrollRadius = obj.radius;
+        this.scrollColor = obj.color;
         this.scrollY = 0;
         this.scrollShow = false; // 默认不显示
-        this.computed = {
+        this.$computed = {
             scrollX () {
                 return ui.canvas.width - this.scrollWidth;
             },

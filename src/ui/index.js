@@ -14,6 +14,8 @@ const init = function () {
     ui = {};
     ui.font = initUi(new Font({}, ui));
     ui.canvas = initUi(new Canvas(config.canvas, ui));
+    ui.scroll = initUi(new Scroll(config.scroll, ui));
+    ui.cursor = initUi(new Cursor({}, ui));
     ui.font.heightCount = 10;
 
     return ui;

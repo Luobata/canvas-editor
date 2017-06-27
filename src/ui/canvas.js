@@ -23,7 +23,7 @@ export default class Canvas {
         this.$computed = {
             innerHeight () {
                 // TODO 这里初始化调用了次 需要优化
-                console.log(1);
+                //console.log(1);
                 const height = ui.font.heightCount + this.padding * 2;
                 //return height;
                 return height - this.innerHeight ? height : this.innerHeight;

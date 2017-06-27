@@ -10,7 +10,9 @@ import Dep from './dep.js';
 
 export class Observer {
     dep: Dep;
-    constructor (obj) {
+    constructor (obj, model) {
+        this.__proto__ = model;
+        this.__UINAME = model.constructor.name;
         let decorate = (obj) => {
             let key;
             let value;
@@ -24,6 +26,7 @@ export class Observer {
                 }
 
                 if (isFun(value)) {
+                    that.key = value;
                     continue;
                 }
 
@@ -78,8 +81,8 @@ export const defineProperty = function (
     });
 }
 
-export function observe(obj) {
-    let observe = new Observer(obj);
+export function observe(obj, model) {
+    let observe = new Observer(obj, model);
 
     return observe;
 };

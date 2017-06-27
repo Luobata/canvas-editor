@@ -12,7 +12,14 @@ import {
 export default function initUi(obj) {
     let $data = {};
     let $computed = {};
+    let $method = {};
     for (let i in obj) {
+
+        if (isFun(obj[i])) {
+            $method[i] = method[i];
+            continue;
+        }
+
         if (i === '$computed') {
             $computed = obj[i];
             continue;
@@ -21,7 +28,7 @@ export default function initUi(obj) {
         $data[i] = obj[i];
     }
 
-    $data = initData($data);
+    $data = initData($data, obj);
     initComputed($computed, $data);
 
     return $data;
@@ -67,6 +74,9 @@ const initComputed = function (
     }
 };
 
-const initData = function (obj) {
-    return observe(obj);
+const initData = function (
+    obj: object,
+    model: object
+) {
+    return observe(obj, model);
 }

@@ -7,6 +7,7 @@ import Scroll from './scroll.js';
 import Font from './font.js';
 import * as config from './config.js';
 import initUi from './init.js';
+import drawInit from './draw.js';
 
 let ui;
 
@@ -16,7 +17,6 @@ const init = function () {
     ui.canvas = initUi(new Canvas(config.canvas, ui));
     ui.scroll = initUi(new Scroll(config.scroll, ui));
     ui.cursor = initUi(new Cursor({}, ui));
-    ui.font.heightCount = 10;
 
     return ui;
 

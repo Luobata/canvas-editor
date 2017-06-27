@@ -2,8 +2,6 @@
  * @description font对象
  */
 
-import initUi from './init.js';
-
 export default class Font {
 
     heightCount : number;

@@ -26,7 +26,8 @@ export default class Scroll {
                 return ui.canvas.width - this.scrollWidth;
             },
             scrollY () {
-                return this.getScrollHeight(ui) * this.scrollY / this.height;
+                console.log(this.scrollHeight);
+                return this.scrollShow && this.scrollHeight ? this.getScrollHeight(ui) * this.scrollY / this.scrollHeight : 0;
             },
             scrollHeight () {
                 return this.getScrollHeight(ui);

@@ -2,17 +2,20 @@
  * @description font对象
  */
 
-export default class Font {
+import {
+    canvas,
+    ctx
+} from './config.js';
 
-    heightCount : number;
-    fontArray: array;
+export default class Font {
 
     $computed: object; // 计算属性
 
     constructor (obj, ui) {
-        this.heightCount = 0;
-    }
+    };
 
-    pushFont (font) {
+    draw (font) {
+        ctx.font = `${font.weight} ${font.size} ${font.family} ${font.color}`;
+        ctx.fillText(font.value, font.cursorX, font.cursorY);
     }
 };

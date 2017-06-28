@@ -4,19 +4,24 @@
 import Canvas from './canvas.js';
 import Cursor from './cursor.js';
 import Scroll from './scroll.js';
-import Font from './font.js';
+import Content from './content.js';
 import * as config from './config.js';
 import initUi from './init.js';
-import drawInit from './draw.js';
+import {
+    drawInit
+} from './draw.js';
 
-let ui;
+export let ui;
 
 const init = function () {
     ui = {};
-    ui.font = initUi(new Font({}, ui));
-    ui.canvas = initUi(new Canvas(config.canvas, ui));
-    ui.scroll = initUi(new Scroll(config.scroll, ui));
-    ui.cursor = initUi(new Cursor({}, ui));
+    ui.content = initUi(new Content({}, ui));
+    ui.canvas = initUi(new Canvas(config.canvasConf, ui));
+    ui.scroll = initUi(new Scroll(config.scrollConf, ui));
+    ui.cursor = initUi(new Cursor(config.cursorConf, ui));
+    
+    drawInit(ui);
+    ui.cursor.start();
 
     return ui;
 
@@ -29,6 +34,8 @@ const init = function () {
     };
 };
 
-export default function ui() {
+export default function ui(can, ctx) {
+    config.canvas = can;
+    config.ctx = ctx;
     return init();
 };

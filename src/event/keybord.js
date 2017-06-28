@@ -10,8 +10,13 @@ import {
     cursorClick
 } from '../layout/cursor.js';
 import { input, isEnter } from '../input/input.js';
+import {
+    keyInput
+} from '../input/keybord.js';
 
-import {mouse} from '../input/mouse.js';
+import {
+    mouse
+} from '../input/mouse.js';
 
 export default function init (canvas, ctx, text) {
     var isProcessEnter = false;
@@ -30,7 +35,8 @@ export default function init (canvas, ctx, text) {
     text.addEventListener('keydown', function (e) {
         //console.log(e);
         isProcessEnter = isEnter(e);
-        input(e, ctx, canvas);
+        // input(e, ctx, canvas);
+        keyInput(e);
         e.target.value = '';
         e.stopPropagation();
     });

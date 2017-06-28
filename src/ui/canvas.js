@@ -2,6 +2,11 @@
  * @description canvas对象
  */
 
+import {
+    canvas,
+    ctx
+} from './config.js';
+
 export default class Canvas {
 
     width: number;
@@ -24,12 +29,12 @@ export default class Canvas {
             innerHeight () {
                 // TODO 这里初始化调用了次 需要优化
                 //console.log(1);
-                const height = ui.font.heightCount + this.padding * 2;
-                //return height;
+                const height = ui.content.heightCount + this.padding * 2;
                 return height - this.innerHeight ? height : this.innerHeight;
             }
         };
-
-        //return initUi(this);
     };
+
+    draw () {
+    }
 };

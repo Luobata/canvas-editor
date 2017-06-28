@@ -66,7 +66,7 @@ export const defineProperty = function (
             }
             dep.notify();
 
-            console.log(key + ' : ' + val);
+            // console.log(key + ' : ' + val);
         },
         get: function () {
             // 如果已经赋值过get了 直接调用

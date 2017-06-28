@@ -2,6 +2,11 @@
  * @description scroll对象
  */
 
+import {
+    canvas,
+    ctx
+} from './config.js';
+
 export default class Scroll {
 
     scrollHeight: number;
@@ -26,7 +31,6 @@ export default class Scroll {
                 return ui.canvas.width - this.scrollWidth;
             },
             scrollY () {
-                console.log(this.scrollHeight);
                 return this.scrollShow && this.scrollHeight ? this.getScrollHeight(ui) * this.scrollY / this.scrollHeight : 0;
             },
             scrollHeight () {
@@ -44,5 +48,19 @@ export default class Scroll {
         if (canvas.height >= canvas.innerHeight) return 0;
         const height = Math.pow(canvas.height, 2) / canvas.innerHeight;
         return height;
+    };
+
+    draw() {
+        if (!this.scrolShow) return;
+        ctx.fillStyle = this.scrollColor;
+        ctx.lineCap = 'square';
+        ctx.beginPath();
+        ctx.moveTo(this.scrollX + this.scrollRadius, this.scrollY);
+        ctx.arcTo(this.scrollX + this.scrollWidth, this.scrollY, this.scrollX + this.scrollWidth, this.scrollY + this.scrollHeight, + this.scrollRadius);
+        ctx.arcTo(this.scrollX + this.scrollWidth, this.scrollY + this.scrollHeight, this.scrollX, this.scrollY + this.scrollHeight, + this.scrollRadius);
+        ctx.arcTo(this.scrollX, this.scrollY + this.scrollHeight, this.scrollX, this.scrollY, + this.scrollRadius);
+        ctx.arcTo(this.scrollX, this.scrollY, this.scrollX + this.scrollWidth, this.scrollY, + this.scrollRadius);
+        ctx.fill();
+        ctx.closePath();
     }
 };

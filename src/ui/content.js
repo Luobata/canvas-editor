@@ -19,6 +19,23 @@ export default class Content {
     constructor (obj, ui) {
         this.heightCount = 0;
         this.fontArray = [];
+
+        this.$computed = {
+            heightCount: function () {
+                let height = 0;
+                let y = 0;
+                console.log(1);
+                for (let i of this.fontArray) {
+                    if (i.y !== y) {
+                        //  说明当前内容在下一行
+                        height += i.height;
+                        y = i.y;
+                    }
+                }
+
+                return height;
+            }
+        };
     };
 
     pushFont (

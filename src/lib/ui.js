@@ -7,13 +7,11 @@ import {
     ctx
 } from '../ui/config.js';
 
-export const txtLength = function (key, delFont) {
-    let wid;
-    let weight = delFont ? delFont.weight : font.weight;
-    let size = delFont ? delFont.size : font.size;
-    let family = delFont ? delFont.family : font.family;
+export const txtLength = function (font) {
+    const weight = font.weight;
+    const size = font.size;
+    const family = font.family;
     ctx.font = `${weight} ${size} ${family}`;
-    wid = ctx.measureText(key).width;
 
-    return wid;
+    return ctx.measureText(font.value).width;
 };

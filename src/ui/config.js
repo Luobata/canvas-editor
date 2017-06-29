@@ -21,3 +21,12 @@ export let scrollConf = {
 export let cursorConf = {
     cursorTime: 500
 };
+
+export let fontConf = {
+    size: '12px',
+    height: 12,
+    family: 'consolas',
+    family: 'MicrosoftYahei',
+    weight: 'bold',
+    color: '#000'
+};

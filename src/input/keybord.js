@@ -3,7 +3,8 @@
  */
 import {
     canvas,
-    ctx
+    ctx,
+    fontConf
 } from '../ui/config.js';
 import {
     txtLength
@@ -11,11 +12,14 @@ import {
 import {
     ui
 } from '../ui/index.js';
+import Font from '../ui/font.js';
+
 
 function anlyse (input) {
     const code = input.keyCode;
     const key = input.key;
 
+    let fontObj = Object.assign({}, fontConf);
     let wid;
 
     // backspace 并且存在内容
@@ -32,21 +36,13 @@ function anlyse (input) {
         (code >= 186 && code <= 192) ||
         (code >= 219 && code <= 222) ||
         (code === 'txt')) {
-        wid = txtLenth(input.key); 
-        ui.cursor.cursorPosition(wid, '', '', parseInt(font.size, 10));
-        ui.cursor.addFont({
-            size: font.size,
-            weight: font.weight,
-            family: font.family,
-            width: wid,
-            height: parseInt(font.size, 10),
-            innerHeight: cursor.cursorY,
-            color: font.color,
-            cursorX: cursor.cursorX,
-            cursorY: cursor.cursorY,
-            value: input.key
-        });
-        ui.cursor.cursorChange(wid);
+        fontObj.value = input.key;
+        fontObj.width = txtLength(fontObj);
+        fontObj.x = ui.cursor.cursorX;
+        fontObj.y = ui.cursor.cursorY;
+        //ui.cursor.cursorPosition(wid, '', '', fontObj.height);
+        ui.content.pushFont(new Font(fontObj, ui));
+        //ui.cursor.cursorChange(wid);
     }
 };
 

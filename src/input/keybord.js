@@ -40,9 +40,9 @@ function anlyse (input) {
         fontObj.width = txtLength(fontObj);
         fontObj.x = ui.cursor.cursorX;
         fontObj.y = ui.cursor.cursorY;
-        //ui.cursor.cursorPosition(wid, '', '', fontObj.height);
+        ui.cursor.cursorPosition(fontObj.width, '', '', fontObj.height);
         ui.content.pushFont(new Font(fontObj, ui));
-        //ui.cursor.cursorChange(wid);
+        ui.cursor.cursorChange(fontObj.width);
     }
 };
 

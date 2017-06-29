@@ -12,6 +12,7 @@ import {
 } from './draw.js';
 
 let uiStack;
+let endY;
 
 export default class Cursor {
 
@@ -29,7 +30,9 @@ export default class Cursor {
         this.cursorTime = obj.cursorTime || 500;
         this.cursorShow = true;
         this.timer = null;
+
         uiStack = ui;
+        endY = ui.canvas.padding;
     };
 
     draw (
@@ -59,32 +62,34 @@ export default class Cursor {
 
     cursorPosition (width, lastX, lastY, height) {
         // 输入遇到右边界
-        if (width >= 0 && isBorder('right', width, cursorX)) {
-            cursorX = startX;
-            cursorY += parseInt(font.size, 10);
-            stack.container.height += height;
-            // stack.container.height = stack.txtArr[stack.txtArr.length - 1].innerHeight + 20;
-            stack.cursor.y += height;
-            scroll.changeScroll();
+        if (width >= 0 && isBorder('right', width, this.cursorX)) {
+            this.cursorX = startX;
+            this.cursorY += parseInt(font.size, 10);
+            //stack.container.height += height;
+            //stack.cursor.y += height;
+            //scroll.changeScroll();
             if (isBorder('bottom')) {
                 // 遇到下边界
-                console.log(getBottom());
-                draw.scrollerIme(-1, getBottom());
+                //draw.scrollerIme(-1, getBottom());
             }
             return;
         }
 
         // 删除遇到左边界
-        if (width < 0 && isBorder('left', width, cursorX)) {
+        if (width < 0 && isBorder('left', width, this.cursorX)) {
             // 删除 先增加一个字符的长度 后面光标计算的时候减掉
-            cursorX = lastX - width;
-            cursorY = lastY;
-            stack.container.height = cursorY;
-            scroll.changeScroll();
-            stack.cursor.y = cursorY - parseInt(font.size, 10);
+            this.cursorX = lastX - width;
+            this.cursorY = lastY;
+            //stack.container.height = this.cursorY;
+            //scroll.changeScroll();
+            this.cursorY = this.cursorY - parseInt(font.size, 10);
             return;
         }
     };
+
+    cursorChange (width) {
+        this.cursorX += width;
+    }
 };
 
 const isBorder = function (dir, width, cursorX) {

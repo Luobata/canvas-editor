@@ -38,9 +38,9 @@ function anlyse (input) {
         (code === 'txt')) {
         fontObj.value = input.key;
         fontObj.width = txtLength(fontObj);
+        ui.cursor.cursorPosition(fontObj.width, '', '', fontObj.height);
         fontObj.x = ui.cursor.cursorX;
         fontObj.y = ui.cursor.cursorY;
-        ui.cursor.cursorPosition(fontObj.width, '', '', fontObj.height);
         ui.content.pushFont(new Font(fontObj, ui));
         ui.cursor.cursorChange(fontObj.width);
     }

@@ -27,24 +27,24 @@ var addText = function (dom, canvas) {
 };
 
 export var init = function (selector) {
-    var dom = document.getElementById(selector);
-    var canvas = dom.querySelector('canvas');
+    //var dom = document.getElementById(selector);
+    //var canvas = dom.querySelector('canvas');
 
-    var text = addText(dom, canvas);
+    //var text = addText(dom, canvas);
     var dom2 = document.getElementById('editor2');
     var canvas2 = dom2.querySelector('canvas');
 
-    var text2 = addText(dom2, canvas);
+    var text2 = addText(dom2, canvas2);
     var ctx;
     var ctx2;
     hack();
-    can.canvasInit(canvas);
+    //can.canvasInit(canvas);
     
 
-    if (canvas.getContext) {
-        ctx = canvas.getContext('2d');
+    if (canvas2.getContext) {
+        //ctx = canvas.getContext('2d');
         ctx2 = canvas2.getContext('2d');
-        keybord(canvas, ctx, text);
+        //keybord(canvas, ctx, text);
         keybord(canvas2, ctx2, text2);
         ui(canvas2, ctx2);
     }

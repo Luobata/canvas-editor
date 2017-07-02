@@ -21,6 +21,7 @@ export var cursorY = (function () {
 }());
 
 export var cursorTimer = (function () {
+    return;
     timer = null;
     timer = setInterval(function () {
         stack.cursor.show = !stack.cursor.show;

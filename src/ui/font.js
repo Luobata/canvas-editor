@@ -36,5 +36,5 @@ export default class Font {
     draw () {
         ctx.font = `${this.weight} ${this.size} ${this.family} ${this.color}`;
         ctx.fillText(this.value, this.x, this.y + this.height);
-    }
+    };
 };

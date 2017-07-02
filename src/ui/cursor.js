@@ -4,7 +4,8 @@
 
 import {
     canvas,
-    ctx
+    ctx,
+    fontConf
 } from './config.js';
 
 import {
@@ -61,13 +62,16 @@ export default class Cursor {
     };
 
     cursorPosition (width, lastX, lastY, height) {
+        const startX = uiStack.canvas.padding;
+        const fontHeight = fontConf.height;
         // 输入遇到右边界
         if (width >= 0 && isBorder('right', width, this.cursorX)) {
             this.cursorX = startX;
-            this.cursorY += parseInt(font.size, 10);
+            this.cursorY += fontHeight;
             //stack.container.height += height;
             //stack.cursor.y += height;
             //scroll.changeScroll();
+            return;
             if (isBorder('bottom')) {
                 // 遇到下边界
                 //draw.scrollerIme(-1, getBottom());
@@ -99,7 +103,7 @@ const isBorder = function (dir, width, cursorX) {
             flag = cursorX === startX;
             break;
         case 'right':
-            flag = cursorX + width > canvas.canvasWidth + endY;
+            flag = cursorX + width > uiStack.canvas.width - uiStack.canvas.padding;
             break;
         case 'bottom':
             flag = getBottom() > 0 ? true : false;

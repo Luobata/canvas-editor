@@ -8,6 +8,10 @@ import {
     ctx
 } from './config.js';
 
+import {
+    drawAll
+} from './draw.js';
+
 
 export default class Content {
 
@@ -42,6 +46,7 @@ export default class Content {
         font: Font
     ) {
         this.fontArray.push(font);
+        drawAll();
     };
 
     clearFont () {

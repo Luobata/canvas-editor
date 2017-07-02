@@ -41,8 +41,8 @@ function anlyse (input) {
         ui.cursor.cursorPosition(fontObj.width, '', '', fontObj.height);
         fontObj.x = ui.cursor.cursorX;
         fontObj.y = ui.cursor.cursorY;
-        ui.content.pushFont(new Font(fontObj, ui));
         ui.cursor.cursorChange(fontObj.width);
+        ui.content.pushFont(new Font(fontObj, ui));
     }
 };
 

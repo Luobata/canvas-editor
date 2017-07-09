@@ -2,7 +2,6 @@
  * @description init keybord eventListener
  */
 
-import * as draw from './draw.js';
 import * as stack from '../layout/stack.js';
 import {
     cursorX,
@@ -13,6 +12,12 @@ import { input, isEnter } from '../input/input.js';
 import {
     keyInput
 } from '../input/keybord.js';
+import {
+    ui
+} from '../ui/index.js';
+import {
+    drawAll
+} from '../ui/draw.js';
 
 import {
     mouse
@@ -26,7 +31,7 @@ export default function init (canvas, ctx, text) {
         if (!textTarget) return;
         if (textTarget.value.length > 0) {
             textTarget.value.split('').forEach(function (item) {
-                input({key: item, keyCode: 'txt'}, ctx, canvas);
+                keyInput({key: item, keyCode: 'txt'});
             });
         }
         textTarget.value = '';
@@ -65,7 +70,7 @@ export default function init (canvas, ctx, text) {
     canvas.addEventListener('blur', function (e) {
     });
     text.addEventListener('mousedown', function (e) {
-        cursorClick(e.layerX, e.layerY);
-        draw.drawAll();
+        ui.cursor.cursorClick(e.layerX, e.layerY);
+        drawAll();
     });
 };

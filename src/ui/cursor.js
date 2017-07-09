@@ -12,6 +12,10 @@ import {
     drawAll
 } from './draw.js';
 
+import {
+    txtLength
+} from '../lib/ui.js';
+
 let uiStack;
 let endY;
 
@@ -93,7 +97,28 @@ export default class Cursor {
 
     cursorChange (width) {
         this.cursorX += width;
-    }
+    };
+
+    cursorClick (
+        x: number,
+        y: number
+    ) {
+        let i;
+        let flag = true;
+        const canvas = uiStack.canvas;
+        const txtArr = uiStack.content.fontArray;
+        if (y < canvas.padding) y = canvas.padding;
+        if (x < canvas.padding) {
+            x = canvas.padding;
+            flag = false; 
+        }
+        for (i of txtArr) {
+            if (i.x <= x && i.y <= y && i.y + i.height >= y) {
+                this.cursorX = i.x + (flag ? txtLength(i) : 0);
+                this.cursorY = i.y;
+            }
+        }
+    };
 };
 
 const isBorder = function (dir, width, cursorX) {

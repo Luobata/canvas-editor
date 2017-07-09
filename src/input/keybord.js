@@ -10,6 +10,9 @@ import {
     txtLength
 } from '../lib/ui.js';
 import {
+    drawAll
+} from '../ui/draw.js';
+import {
     ui
 } from '../ui/index.js';
 import Font from '../ui/font.js';
@@ -52,4 +55,5 @@ export function isEnter (input) {
 
 export let keyInput = function (e) {
     anlyse(e);
+    drawAll();
 };

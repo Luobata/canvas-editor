@@ -28,7 +28,6 @@ export default class Content {
             heightCount: function () {
                 let height = 0;
                 let y = 0;
-                console.log(1);
                 for (let i of this.fontArray) {
                     if (i.y !== y) {
                         //  说明当前内容在下一行

@@ -27,7 +27,7 @@ function anlyse (input) {
 
     // backspace 并且存在内容
     if (code === 8) {
-        ui.cursor.deleteFont(cursor.cursorX, cursor.cursorY);
+        ui.content.deleteFont(ui.cursor.cursorX, ui.cursor.cursorY);
         return;
     }
 
@@ -45,7 +45,7 @@ function anlyse (input) {
         fontObj.x = ui.cursor.cursorX;
         fontObj.y = ui.cursor.cursorY;
         ui.cursor.cursorChange(fontObj.width);
-        ui.content.pushFont(new Font(fontObj, ui));
+        ui.content.pushFont(fontObj);
     }
 };
 

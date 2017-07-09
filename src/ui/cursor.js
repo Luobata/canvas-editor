@@ -121,8 +121,9 @@ export default class Cursor {
     };
 };
 
-const isBorder = function (dir, width, cursorX) {
+export const isBorder = function (dir, width, cursorX) {
     var flag = false;
+    const startX = uiStack.canvas.padding;
     switch (dir) {
         case 'left':
             flag = cursorX === startX;

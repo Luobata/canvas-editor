@@ -13,23 +13,30 @@ import { arrayMethods } from './array.js';
 
 const arrayKeys = Object.getOwnPropertyNames(arrayMethods);
 let id = 0;
+let uiStack;
 
 export class Observer {
     id: number;
     dep: Dep;
     constructor (obj, model) {
         const origin = this;
+        const arrayKeys = Object.getOwnPropertyNames(origin.__proto__);
         origin.id = id++;
-        this.__parent__ = model;
+        if (model) uiStack = model;
         //origin.__proto__.__proto__ = model; // 这句会有闭包的问题？？？
-        protoAugment(this, model);
         this.__UINAME = model.constructor.name;
-        //def(this, '__ob__', this);
+        this.dep = new Dep();
+        def(this, '__ob__', this);
+        for (let i of arrayKeys) {
+            if (i !== 'constructor') {
+                model.__proto__[i] = origin.__proto__[i];
+            }
+        }
+        protoAugment(this, model);
         let decorate = (obj) => {
             let key;
             let value;
             let that = this;
-            this.dep = new Dep();
             for (key in obj) {
                 value = obj[key];
                 if (isObj(value)) {
@@ -38,12 +45,14 @@ export class Observer {
                 }
 
                 if (Array.isArray(value)) {
+                    that[key] = value;
                     protoAugment(value, arrayMethods);
-                    //def(that[key], '__ob__', that);
+                    def(that[key], '__ob__', that);
+                    continue;
                 }
 
                 if (isFun(value)) {
-                    that.key = value;
+                    that[key] = value;
                     continue;
                 }
 
@@ -110,7 +119,7 @@ export const defineProperty = function (
 }
 
 export function observe(obj, model) {
-    let observe = new Observer(obj, model);
+    let observe = new Observer(obj, model || uiStack);
 
     return observe;
 };

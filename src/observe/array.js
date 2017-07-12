@@ -39,6 +39,7 @@ export const arrayMethods = Object.create(arrayProto);
                 break;
         }
 
+        debugger;
         if (inserted) ob.observeArray(inserted);
 
         ob.dep.notify();

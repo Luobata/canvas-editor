@@ -4,15 +4,27 @@
 
 import {
     isObj,
-    isFun
+    isFun,
+    def,
+    protoAugment
 } from '../lib/util.js';
 import Dep from './dep.js';
+import { arrayMethods } from './array.js';
+
+const arrayKeys = Object.getOwnPropertyNames(arrayMethods);
+let id = 0;
 
 export class Observer {
+    id: number;
     dep: Dep;
     constructor (obj, model) {
-        this.__proto__ = model;
+        const origin = this;
+        origin.id = id++;
+        this.__parent__ = model;
+        //origin.__proto__.__proto__ = model; // 这句会有闭包的问题？？？
+        protoAugment(this, model);
         this.__UINAME = model.constructor.name;
+        //def(this, '__ob__', this);
         let decorate = (obj) => {
             let key;
             let value;
@@ -23,6 +35,11 @@ export class Observer {
                 if (isObj(value)) {
                     decorate(value);
                     continue;
+                }
+
+                if (Array.isArray(value)) {
+                    protoAugment(value, arrayMethods);
+                    //def(that[key], '__ob__', that);
                 }
 
                 if (isFun(value)) {
@@ -37,7 +54,15 @@ export class Observer {
         };
 
         decorate(obj);
-    }
+    };
+
+    observeArray (
+        items: Array<any>
+    ) {
+        for (let i of items) {
+            observe(i);
+        }
+    };
 };
 
 export const defineProperty = function (
@@ -74,6 +99,9 @@ export const defineProperty = function (
 
             if (Dep.target) {
                 dep.depend();
+                if (Array.isArray(value)) {
+                    dependArray(value);
+                }
             }
 
             return value;
@@ -85,4 +113,12 @@ export function observe(obj, model) {
     let observe = new Observer(obj, model);
 
     return observe;
+};
+
+const dependArray = function (
+    value: Array<any>
+) {
+    for (let i of value) {
+        i && i.dep.depend();
+    }
 };

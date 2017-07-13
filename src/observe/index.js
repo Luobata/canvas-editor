@@ -48,7 +48,6 @@ export class Observer {
                     that[key] = value;
                     protoAugment(value, arrayMethods);
                     def(that[key], '__ob__', that);
-                    continue;
                 }
 
                 if (isFun(value)) {
@@ -109,6 +108,7 @@ export const defineProperty = function (
             if (Dep.target) {
                 dep.depend();
                 if (Array.isArray(value)) {
+                    value.__ob__.dep = dep;
                     dependArray(value);
                 }
             }

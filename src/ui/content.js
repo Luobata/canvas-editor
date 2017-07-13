@@ -37,6 +37,7 @@ export default class Content {
 
         this.$computed = {
             heightCount: function () {
+                console.log(1);
                 let height = 0;
                 let y = 0;
                 for (let i of this.fontArray) {

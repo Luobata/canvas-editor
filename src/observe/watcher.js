@@ -31,6 +31,7 @@ export default class Watcher {
         this.depIds = new Set();
         this.newDepIds = new Set();
         this.expression = getter.toString();
+        this.lazy = true;
 
         this.value = this.get();
     };
@@ -52,6 +53,7 @@ export default class Watcher {
 
     evaluate () {
         this.value = this.get();
+        this.lazy = false;
     };
 
     addDep (

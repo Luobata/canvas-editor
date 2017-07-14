@@ -52,14 +52,14 @@ export default class Content {
 
                 return height;
             },
-            xxx () {
+            xx () {
                 console.log(222);
                 return this.xxx;
             }
         };
         const that = this;
-        setTimeout(function () {
-            //that.xxx++;
+        setInterval(function () {
+            that.xxx++;
         }, 1000);
     };
 

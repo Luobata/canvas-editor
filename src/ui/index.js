@@ -21,6 +21,7 @@ const init = function () {
     ui.cursor = initUi(new Cursor(config.cursorConf, ui));
     
     drawInit(ui);
+    //ui.content.start();
     ui.cursor.start();
 
     return ui;

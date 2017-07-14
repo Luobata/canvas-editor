@@ -33,6 +33,7 @@ export default class Content {
         //this.heightCount = 0;
         this.fontArray = [];
         this.xxx = 0;
+        this.yyy = 0;
 
         uiStack = ui;
 
@@ -40,8 +41,6 @@ export default class Content {
             heightCount () {
                 let height = 0;
                 let y = 0;
-                const x = this.xxx;
-                console.log(111);
                 for (let i of this.fontArray) {
                     if (i.y !== y) {
                         //  说明当前内容在下一行
@@ -53,13 +52,15 @@ export default class Content {
                 return height;
             },
             xx () {
-                console.log(222);
-                return this.xxx;
+                return this.yyy + this.xxx;
             }
         };
-        const that = this;
-        setInterval(function () {
-            that.xxx++;
+    };
+
+    start() {
+        setInterval(() => {
+            const x = this.yyy;
+            this.xxx = this.xxx + 2;
         }, 1000);
     };
 

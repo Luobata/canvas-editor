@@ -38,9 +38,6 @@ export default class Watcher {
 
     get () {
         // 依赖收集
-        if (this.expression.indexOf('console.log(2)') !== -1) {
-            debugger;
-        }
         pushTarget(this);
 
         const value = this.getter.call(this.model);
@@ -60,7 +57,7 @@ export default class Watcher {
         dep: Dep
     ) {
         const id = dep.id;
-        this.deps.push(dep);
+        //this.deps.push(dep);
         if (!this.newDepIds.has(id)) {
             this.newDepIds.add(id);
             this.newDeps.push(dep);

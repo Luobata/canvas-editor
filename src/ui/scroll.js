@@ -34,7 +34,6 @@ export default class Scroll {
                 return this.scrollShow && this.scrollHeight ? this.getScrollHeight(ui) * this.scrollY / this.scrollHeight : 0;
             },
             scrollHeight () {
-                console.log(2);
                 return this.getScrollHeight(ui);
             }
         }
@@ -46,8 +45,7 @@ export default class Scroll {
         // barwidth / wrapwidth = wrapwidth / contentwidth
         // stack.scroll.height = canvas.canvasInnerHeight * canvas.canvasInnerHeight / stack.container.height;
         const canvas = ui.canvas;
-        //const innerHeight = canvas.innerHeight;
-        if (canvas.innerHeight < canvas.height) return 0;
+        if (canvas.height >= canvas.innerHeight) return 0;
         const height = Math.pow(canvas.height, 2) / canvas.innerHeight;
         return height;
     };

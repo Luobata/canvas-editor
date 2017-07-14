@@ -89,6 +89,11 @@ export const defineProperty = function (
         enumerable: true,
         configurable: true,
         set: function (newVal) {
+            if (key === 'xxx') {
+                debugger;
+            }
+            if (typeof newVal !== 'boolean') {
+            }
             const value = getter ? getter.call(obj) : val;
             if (val === newVal) return;
 

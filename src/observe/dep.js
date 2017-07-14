@@ -4,10 +4,14 @@
 
 import type Watcher from './watcher.js';
 
+let uid = 0;
+
 export default class Dep {
     subs: Array<Watcher>;
+    id: number;
 
     constructor () {
+        this.id = uid++;
         this.subs = [];
     };
 
@@ -48,7 +52,6 @@ export const pushTarget = function (
     target: Watcher
 ) {
     if (Dep.target) {
-        debugger;
         targetStack.push(Dep.target);
     }
     Dep.target = target;

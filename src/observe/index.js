@@ -128,6 +128,6 @@ const dependArray = function (
     value: Array<any>
 ) {
     for (let i of value) {
-        i && i.dep.depend();
+        //i && i.dep.depend();
     }
 };

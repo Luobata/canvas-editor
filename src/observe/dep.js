@@ -48,6 +48,7 @@ export const pushTarget = function (
     target: Watcher
 ) {
     if (Dep.target) {
+        debugger;
         targetStack.push(Dep.target);
     }
     Dep.target = target;

@@ -30,14 +30,13 @@ export default class Content {
     $computed: object; // 计算属性
 
     constructor (obj, ui) {
-        this.heightCount = 0;
+        //this.heightCount = 0;
         this.fontArray = [];
 
         uiStack = ui;
 
         this.$computed = {
-            heightCount: function () {
-                console.log(1);
+            heightCount () {
                 let height = 0;
                 let y = 0;
                 for (let i of this.fontArray) {

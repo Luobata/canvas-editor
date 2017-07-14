@@ -16,6 +16,7 @@ export default class Watcher {
     newDeps: Array<Dep>;
     depIds: Set;
     newDepIds: Set;
+    expression: string;
 
     constructor (
         model: object,
@@ -29,12 +30,16 @@ export default class Watcher {
         this.newDeps = [];
         this.depIds = new Set();
         this.newDepIds = new Set();
+        this.expression = getter.toString();
 
         this.value = this.get();
     };
 
     get () {
         // 依赖收集
+        if (this.expression.indexOf('console.log(2)') !== -1) {
+            debugger;
+        }
         pushTarget(this);
 
         const value = this.getter.call(this.model);
@@ -43,6 +48,10 @@ export default class Watcher {
         this.cleanDeps();
 
         return value;
+    };
+
+    evaluate () {
+        this.value = this.get();
     };
 
     addDep (

@@ -32,6 +32,7 @@ export default class Content {
     constructor (obj, ui) {
         //this.heightCount = 0;
         this.fontArray = [];
+        this.xxx = 0;
 
         uiStack = ui;
 
@@ -39,6 +40,8 @@ export default class Content {
             heightCount () {
                 let height = 0;
                 let y = 0;
+                const x = this.xxx;
+                console.log(111);
                 for (let i of this.fontArray) {
                     if (i.y !== y) {
                         //  说明当前内容在下一行
@@ -48,8 +51,16 @@ export default class Content {
                 }
 
                 return height;
+            },
+            xxx () {
+                console.log(222);
+                return this.xxx;
             }
         };
+        const that = this;
+        setTimeout(function () {
+            //that.xxx++;
+        }, 1000);
     };
 
     pushFont (

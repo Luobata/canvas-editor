@@ -49,8 +49,8 @@ export default class Watcher {
     };
 
     evaluate () {
-        this.value = this.get();
         this.lazy = false;
+        this.value = this.get();
     };
 
     addDep (

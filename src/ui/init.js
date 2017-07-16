@@ -52,11 +52,11 @@ const initComputed = function (
     ) {
         const watcher = new Watcher(model, getter, noopFun);
         return function () {
+            debugger;
             if (watcher.lazy) {
                 watcher.evaluate();
             }
             if (Dep.target) {
-                debugger;
                 watcher.depend();
             }
 

@@ -31,7 +31,7 @@ export default class Scroll {
                 return ui.canvas.width - this.scrollWidth;
             },
             scrollY () {
-                return this.scrollShow && this.scrollHeight ? this.getScrollHeight(ui) * this.scrollY / this.scrollHeight : 0;
+                return this.scrollShow && this.scrollHeight ? this.scrollHeight * this.scrollY / this.scrollHeight : 0;
             },
             scrollHeight () {
                 return this.getScrollHeight(ui);
@@ -45,13 +45,17 @@ export default class Scroll {
         // barwidth / wrapwidth = wrapwidth / contentwidth
         // stack.scroll.height = canvas.canvasInnerHeight * canvas.canvasInnerHeight / stack.container.height;
         const canvas = ui.canvas;
-        if (canvas.height >= canvas.innerHeight) return 0;
+        if (canvas.height >= canvas.innerHeight) {
+            this.scrollShow = false;
+            return 0;
+        }
         const height = Math.pow(canvas.height, 2) / canvas.innerHeight;
+        if (!this.scrollShow) this.scrollShow = true;
         return height;
     };
 
     draw() {
-        if (!this.scrolShow) return;
+        if (!this.scrollShow) return;
         ctx.fillStyle = this.scrollColor;
         ctx.lineCap = 'square';
         ctx.beginPath();

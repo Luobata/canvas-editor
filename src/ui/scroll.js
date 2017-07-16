@@ -23,6 +23,11 @@ export default class Scroll {
     scrollColor: string;
     scrollShow: boolean;
 
+    frame: number; // 帧数
+    ticker: number; // 每帧的时间
+    frameTime: number; // 每次滚动的时间
+    scrollArr: Array; // 滚动事件队列
+
     computed: object; // 计算属性， 依赖其他模块的值
 
     constructor (obj, ui) {
@@ -33,15 +38,20 @@ export default class Scroll {
         this.scrollY = 0;
         this.scrollShow = false; // 默认不显示
 
+        this.frame = 60;
+        this.ticker = 1 * 1000 / this.frame;
+        this.frameTime = 250;
+        this.scrollArr = [];
+
         uiStack = ui;
 
         this.$computed = {
             scrollX () {
                 return ui.canvas.width - this.scrollWidth;
             },
-            scrollY () {
-                return this.scrollShow && this.scrollHeight ? this.scrollHeight * this.scrollY / this.scrollHeight : 0;
-            },
+            //scrollY () {
+            //    return this.scrollShow && this.scrollHeight ? this.scrollHeight * this.scrollY / this.scrollHeight : 0;
+            //},
             scrollHeight () {
                 return this.getScrollHeight(ui);
             }
@@ -49,7 +59,7 @@ export default class Scroll {
 
     };
 
-    getScrollHeight(ui) {
+    getScrollHeight (ui) {
         // 滚动条高度 = canvas容器高度^2 / 容器的高度
         // barwidth / wrapwidth = wrapwidth / contentwidth
         // stack.scroll.height = canvas.canvasInnerHeight * canvas.canvasInnerHeight / stack.container.height;
@@ -63,6 +73,11 @@ export default class Scroll {
         return height;
     };
 
+    setScrollY (
+        y: number
+    ) {
+        this.scrollY = this.scrollShow && this.scrollHeight ? this.scrollHeight * this.scrollY / this.scrollHeight : 0;
+    };
 
     /**
      * 滚动条立即滚动函数
@@ -72,6 +87,42 @@ export default class Scroll {
         dis: number
     ) {
         this.scrollCore(dir * dis);
+    };
+
+    /**
+     */
+    scroller (
+        dir: number,
+        dis: number
+    ) {
+        const lon = dir * dis / this.frame / (this.frameTime / 1000);
+        let timer;
+        let time = new Date().getTime();
+        this.scrollArr.push({
+            dir: dir,
+            lon: lon
+        });
+
+        const stopTimer = () => {
+            clearInterval(timer);
+            timer = null;
+            time = new Date().getTime();
+        };
+        const timerInit = (scroll) => {
+            timer = setInterval(() => {
+                if (new Date().getTime() - time < this.frameTime && !this.disabled(scroll.dir)) {
+                    this.scrollCore(scroll.lon);
+                } else if (this.scrollArr.length) {
+                    stopTimer();
+                    timerInit(this.scrollArr.pop());
+                } else {
+                    stopTimer();
+                }
+            }, this.ticker);
+        };
+        if (this.scrollArr.length === 1) {
+            timerInit(this.scrollArr.pop());
+        }
     };
 
 
@@ -86,7 +137,7 @@ export default class Scroll {
         }
         uiStack.cursor.cursorY += lon;
         //cursorYChange(lon);
-        //this.scrollY += scrollObj.scrollMoveCal(lon);
+        this.scrollY += this.scrollMoveCal(lon);
         drawAll();
     };
 
@@ -94,8 +145,22 @@ export default class Scroll {
      * 滚动条根据内容的变化
      */
     scrollMoveCal (
+        dis: number // 文字移动距离
     ) {
+        const canvas = uiStack.canvas;
+        return - canvas.height * dis / canvas.innerHeight;
+    };
 
+    disabled (
+        dir: number
+    ) {
+        if (!this.scrollShow) return true;
+
+        if (dir > 0) {
+            return this.scrollY <= 0;
+        } else {
+            return this.scrollY + this.scrollHeight > uiStack.canvas.height;
+        }
     };
 
     draw() {

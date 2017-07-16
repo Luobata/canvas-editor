@@ -22,6 +22,7 @@ export default class Canvas {
         this.width = obj.width;
         this.height = obj.height;
         this.padding = obj.padding;
+        this.txtMarginBottom = obj.txtMarginBottom || 1;
         // this.innerHeight = this.height - this.padding * 2;
         this.innerWidth = this.width - this.padding * 2;
 

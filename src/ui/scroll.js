@@ -7,6 +7,12 @@ import {
     ctx
 } from './config.js';
 
+import {
+    drawAll
+} from './draw.js';
+
+let uiStack;
+
 export default class Scroll {
 
     scrollHeight: number;
@@ -26,6 +32,9 @@ export default class Scroll {
         this.scrollColor = obj.color;
         this.scrollY = 0;
         this.scrollShow = false; // 默认不显示
+
+        uiStack = ui;
+
         this.$computed = {
             scrollX () {
                 return ui.canvas.width - this.scrollWidth;
@@ -52,6 +61,41 @@ export default class Scroll {
         const height = Math.pow(canvas.height, 2) / canvas.innerHeight;
         if (!this.scrollShow) this.scrollShow = true;
         return height;
+    };
+
+
+    /**
+     * 滚动条立即滚动函数
+     */
+    scrollerIme (
+        dir: number,
+        dis: number
+    ) {
+        this.scrollCore(dir * dis);
+    };
+
+
+    /**
+     * 滚动条滚动最小单元函数
+     */
+    scrollCore (
+        lon: number
+    ) {
+        for (let i of uiStack.content.fontArray) {
+            i.y += lon;
+        }
+        uiStack.cursor.cursorY += lon;
+        //cursorYChange(lon);
+        //this.scrollY += scrollObj.scrollMoveCal(lon);
+        drawAll();
+    };
+
+    /**
+     * 滚动条根据内容的变化
+     */
+    scrollMoveCal (
+    ) {
+
     };
 
     draw() {

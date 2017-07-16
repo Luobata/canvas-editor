@@ -75,10 +75,9 @@ export default class Cursor {
             //stack.container.height += height;
             //stack.cursor.y += height;
             //scroll.changeScroll();
-            return;
             if (isBorder('bottom')) {
                 // 遇到下边界
-                //draw.scrollerIme(-1, getBottom());
+                uiStack.scroll.scrollerIme(-1, getBottom());
             }
             return;
         }
@@ -137,4 +136,9 @@ export const isBorder = function (dir, width, cursorX) {
     }
 
     return flag;
+};
+
+export const getBottom = function () {
+    const stack = uiStack;
+    return stack.cursor.cursorY + stack.content.fontArray[stack.content.fontArray.length - 1].height - (stack.canvas.height - stack.canvas.txtMarginBottom);
 };

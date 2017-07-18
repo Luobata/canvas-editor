@@ -75,6 +75,10 @@ export default class Cursor {
             //stack.container.height += height;
             //stack.cursor.y += height;
             //scroll.changeScroll();
+            var height = Math.pow(uiStack.canvas.height, 2) / uiStack.canvas.innerHeight;
+            uiStack.scroll.scrollY = uiStack.scroll.scrollShow ? uiStack.scroll.scrollY * height / uiStack.scroll.scrollHeight : 0;
+            console.log(uiStack.scroll.scrollY);
+            //uiStack.scroll.setScrollY(height);
             if (isBorder('bottom')) {
                 // 遇到下边界
                 uiStack.scroll.scrollerIme(-1, getBottom());

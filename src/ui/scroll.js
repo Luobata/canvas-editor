@@ -35,7 +35,7 @@ export default class Scroll {
         this.scrollWidth = obj.width;
         this.scrollRadius = obj.radius;
         this.scrollColor = obj.color;
-        this.scrollY = 0;
+        // this.scrollY = 0;
         this.scrollShow = false; // 默认不显示
 
         this.frame = 60;
@@ -48,6 +48,9 @@ export default class Scroll {
         this.$computed = {
             scrollX () {
                 return ui.canvas.width - this.scrollWidth;
+            },
+            scrollY () {
+                return  - ui.content.viewY * ui.canvas.height / ui.canvas.innerHeight;
             },
             //scrollY () {
             //    return this.scrollShow && this.scrollHeight ? this.scrollHeight * this.scrollY / this.scrollHeight : 0;
@@ -136,8 +139,9 @@ export default class Scroll {
             i.y += lon;
         }
         uiStack.cursor.cursorY += lon;
+        uiStack.content.viewY += lon;
         //cursorYChange(lon);
-        this.scrollY += this.scrollMoveCal(lon);
+        //this.scrollY += this.scrollMoveCal(lon);
         drawAll();
     };
 

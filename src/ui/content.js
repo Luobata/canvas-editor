@@ -24,15 +24,17 @@ let uiStack;
 
 export default class Content {
 
-    heightCount : number;
+    heightCount : number; // 内容区域的高度
+    viewY: number; // 内容区域与canvas的区域的交界处的y坐标点
     fontArray: Array<Font>;
 
     $computed: object; // 计算属性
 
     constructor (obj, ui) {
-        //this.heightCount = 0;
         this.fontArray = [];
-        this.xxx = 0;
+        this.viewY = 0;
+
+        this.xxx = 0; // 测试数据 暂时保留
         this.yyy = 0;
 
         uiStack = ui;

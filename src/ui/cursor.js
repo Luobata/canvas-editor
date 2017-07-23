@@ -93,7 +93,7 @@ export default class Cursor {
             this.cursorY = lastY;
             //stack.container.height = this.cursorY;
             //scroll.changeScroll();
-            this.cursorY = this.cursorY - parseInt(font.size, 10);
+            this.cursorY = this.cursorY - fontConf.height;
             return;
         }
     };

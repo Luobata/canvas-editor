@@ -76,9 +76,6 @@ export default class Cursor {
             //stack.cursor.y += height;
             //scroll.changeScroll();
             var height = Math.pow(uiStack.canvas.height, 2) / uiStack.canvas.innerHeight;
-            uiStack.scroll.scrollY = uiStack.scroll.scrollShow ? uiStack.scroll.scrollY * height / uiStack.scroll.scrollHeight : 0;
-            console.log(uiStack.scroll.scrollY);
-            //uiStack.scroll.setScrollY(height);
             if (isBorder('bottom')) {
                 // 遇到下边界
                 uiStack.scroll.scrollerIme(-1, getBottom());
@@ -93,7 +90,7 @@ export default class Cursor {
             this.cursorY = lastY;
             //stack.container.height = this.cursorY;
             //scroll.changeScroll();
-            this.cursorY = this.cursorY - fontConf.height;
+            //this.cursorY = this.cursorY - fontConf.height;
             return;
         }
     };
@@ -136,6 +133,9 @@ export const isBorder = function (dir, width, cursorX) {
             break;
         case 'bottom':
             flag = getBottom() > 0 ? true : false;
+            break;
+        case 'top':
+            flag = (getTop() <= 0);
             break;
     }
 

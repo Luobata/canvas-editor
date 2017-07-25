@@ -107,7 +107,7 @@ export default class Content {
         let txtArr = this.fontArray;
         let deleteFun = function (i) {
             if (i < 0) return;
-            let item = txtArr.splice(i, 1)[0];
+            item = txtArr.splice(i, 1)[0];
             format(i, txtArr, item);
             uiStack.cursor.cursorPosition(- item.width, item.x, item.y);
             uiStack.cursor.cursorChange(- item.width);
@@ -148,8 +148,8 @@ const format = function (index, txtArr, fonts) {
         wid = fonts ? - wid : wid;
         if (isBorder('left', wid, item.x) && fonts) {
             // TODO判断删除一个元素后 下一行的第一个元素是否上来是个问题
-            item.x = fonts.x;
-            item.y = fonts.y;
+            item.x = txtArr[i - 1].x - wid;
+            item.y = txtArr[i - 1].y;
         } else if (isBorder('right', wid, item.x + fontConf.height) && !fonts) {
             item.x = startX;
             item.y += fontConf.height;

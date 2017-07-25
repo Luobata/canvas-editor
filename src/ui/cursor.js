@@ -146,3 +146,6 @@ export const getBottom = function () {
     const stack = uiStack;
     return stack.cursor.cursorY + stack.content.fontArray[stack.content.fontArray.length - 1].height - (stack.canvas.height - stack.canvas.txtMarginBottom);
 };
+
+export const getTop = () => {
+};

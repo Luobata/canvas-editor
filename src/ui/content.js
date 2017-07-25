@@ -105,12 +105,17 @@ export default class Content {
         let item;
         let isEnd = true;
         let txtArr = this.fontArray;
-        let deleteFun = function (i) {
+        let deleteFun = (i) => {
             if (i < 0) return;
             item = txtArr.splice(i, 1)[0];
             format(i, txtArr, item);
             uiStack.cursor.cursorPosition(- item.width, item.x, item.y);
             uiStack.cursor.cursorChange(- item.width);
+            if (uiStack.cursor.cursorX === uiStack.canvas.padding) {
+                let lastFont = this.fontArray[this.fontArray.length - 1];
+                uiStack.cursor.cursorX = lastFont.x + lastFont.width;
+                uiStack.cursor.cursorY = lastFont.y;
+            }
         };
         for (i = 0; i < txtArr.length; i++) {
             item = txtArr[i];

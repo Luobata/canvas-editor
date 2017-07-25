@@ -111,11 +111,6 @@ export default class Content {
             format(i, txtArr, item);
             uiStack.cursor.cursorPosition(- item.width, item.x, item.y);
             uiStack.cursor.cursorChange(- item.width);
-            if (uiStack.cursor.cursorX === uiStack.canvas.padding) {
-                let lastFont = this.fontArray[this.fontArray.length - 1];
-                uiStack.cursor.cursorX = lastFont.x + lastFont.width;
-                uiStack.cursor.cursorY = lastFont.y;
-            }
         };
         for (i = 0; i < txtArr.length; i++) {
             item = txtArr[i];
@@ -128,6 +123,12 @@ export default class Content {
 
         if (isEnd) {
             deleteFun(txtArr.length - 1);
+            if (uiStack.cursor.cursorX === uiStack.canvas.padding && this.fontArray.length) {
+                let lastFont = this.fontArray[this.fontArray.length - 1];
+                uiStack.cursor.cursorX = lastFont.x + lastFont.width;
+                uiStack.cursor.cursorY = lastFont.y;
+                uiStack.scroll.scrollerIme(1, uiStack.scroll.scrollY + uiStack.scroll.scrollHeight - uiStack.canvas.height);
+            }
         }
     };
 

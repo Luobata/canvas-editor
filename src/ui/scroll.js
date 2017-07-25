@@ -50,7 +50,12 @@ export default class Scroll {
                 return ui.canvas.width - this.scrollWidth;
             },
             scrollY () {
-                return  - ui.content.viewY * ui.canvas.height / ui.canvas.innerHeight;
+                let y = - ui.content.viewY * ui.canvas.height / ui.canvas.innerHeight;
+                // 不能在这里监听高度是否超出来判断是否需要移动 因为y 和 height 可能多次变动，即y可能连续变化，导致多次位移 需总结出移动的位置和y height 的计算关系才可
+                if (y + this.scrollHeight > uiStack.canvas.height) {
+                    console.log(1);
+                }
+                return y;
             },
             //scrollY () {
             //    return this.scrollShow && this.scrollHeight ? this.scrollHeight * this.scrollY / this.scrollHeight : 0;
@@ -59,7 +64,6 @@ export default class Scroll {
                 return this.getScrollHeight(ui);
             }
         }
-
     };
 
     getScrollHeight (ui) {

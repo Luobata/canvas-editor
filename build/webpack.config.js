@@ -1,17 +1,24 @@
 var path = require('path');
 var webpack = require('webpack');
-var root = path.resolve(__dirname, './');
+var root = path.resolve(__dirname, '../');
+var htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     devtool: 'source-map',
 
-    entry:  __dirname + "/src/index.js",
+    entry:  root + "/src/index.js",
+    entry : {
+        app : [
+            "./build/dev-client",
+            root + "/src/index.js"
+        ]
+    },
     output: {
         stats: {
             colors: true
         },
         noInfo: true,
-        path: __dirname + "/",
+        path: root + "/",
         filename: "bundle.js"
     },
 
@@ -33,6 +40,9 @@ module.exports = {
         }
         ]
     },
+    resolveLoader: {
+        fallback: [path.join(__dirname, '../node_modules')]
+    },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
@@ -41,14 +51,19 @@ module.exports = {
         }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new htmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'index.html',
+            inject: true
+        }),
     ],
 
-    devServer: {
-        contentBase: "./",
-        port: 8888,
-        colors: true,
-        historyApiFallback: true,
-        inline: true
-    }
-}
+    // devServer: {
+    //     contentBase: "./",
+    //     port: 8888,
+    //     colors: true,
+    //     historyApiFallback: true,
+    //     inline: true
+    // }
+};
